@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './PixelIntro.css';
 
-import pixel1 from '../assets/grad.png';
-import pixel2 from '../assets/swe.png';
-import pixel3 from '../assets/manager.png';
-import pixel4 from '../assets/yoohoo.png';
+import grad from '../assets/grad.png';
+import swe from '../assets/swe.png';
+import manager from '../assets/manager.png';
+import yoohoo from '../assets/yoohoo.png';
 
-const images = [pixel1, pixel2, pixel3, pixel4];
+const images = [grad, swe, manager, yoohoo];
 
 const PixelIntro = ({ onFinish }) => {
   const [index, setIndex] = useState(0);
