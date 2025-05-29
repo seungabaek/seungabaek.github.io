@@ -1,0 +1,53 @@
+.introContainer {
+    position: fixed;
+    background: #fff;
+    width: 100vw;
+    height: 100vh;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 1s ease;
+    top: 0;
+    left: 0;
+  }
+  
+  .introContainer.fadeOut {
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  .pixelImg {
+    width: 400px;
+    height: 400px;
+    object-fit: contain;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    animation: fade 1s ease;
+  }
+  
+  @keyframes fade {
+    from { 
+      opacity: 0; 
+      transform: scale(2); 
+    }
+    to { 
+      opacity: 1; 
+      transform: scale(1); 
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .pixelImg {
+      width: 300px;
+      height: 300px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .pixelImg {
+      width: 250px;
+      height: 250px;
+    }
+  }

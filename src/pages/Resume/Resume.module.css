@@ -1,0 +1,257 @@
+@import "../../vars.css";
+
+.resume {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--color-bg);
+  padding-top: 100px;
+  padding-bottom: 60px;
+}
+
+.resumeContainer {
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 60px;
+  background: white;
+  color: black;
+  font-family: 'Times New Roman', Georgia, serif;
+  line-height: 1.5;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #000;
+  padding-bottom: 20px;
+}
+
+.name {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: black;
+}
+
+.contactInfo {
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.contactInfo a {
+  color: black;
+  text-decoration: none;
+}
+
+.contactInfo a:hover {
+  text-decoration: underline;
+}
+
+.separator {
+  margin: 0 8px;
+  color: #333;
+}
+
+/* Sections */
+.section {
+  margin-bottom: 30px;
+}
+
+.sectionTitle {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: black;
+  text-transform: uppercase;
+}
+
+.sectionContent {
+  font-size: 14px;
+  text-align: justify;
+  margin: 0;
+}
+
+/* Education */
+.educationItem {
+  font-size: 14px;
+}
+
+.educationHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 5px;
+}
+
+.educationHeader h3 {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.educationHeader p {
+  margin: 0;
+  font-style: italic;
+}
+
+.educationHeader span {
+  font-style: italic;
+}
+
+.detail {
+  margin: 2px 0;
+  padding-left: 0;
+}
+
+/* Skills */
+.skillsContent {
+  font-size: 14px;
+}
+
+.skillsContent p {
+  margin-bottom: 10px;
+  text-align: justify;
+}
+
+/* Experience */
+.experienceItem {
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.experienceHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 3px;
+}
+
+.experienceHeader h3 {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.experienceHeader span {
+  font-style: italic;
+  white-space: nowrap;
+}
+
+.company {
+  margin: 0 0 5px 0;
+  font-style: italic;
+}
+
+.experienceList {
+  margin: 5px 0 0 20px;
+  padding-left: 0;
+}
+
+.experienceList li {
+  margin-bottom: 5px;
+  text-align: justify;
+}
+
+/* Projects */
+.projectItem {
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.projectItem h3 {
+  font-size: 15px;
+  font-weight: bold;
+  margin: 0 0 5px 0;
+}
+
+.projectList {
+  margin: 5px 0 0 20px;
+  padding-left: 0;
+}
+
+.projectList li {
+  margin-bottom: 5px;
+  text-align: justify;
+}
+
+/* Download Button */
+.downloadSection {
+  text-align: center;
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 1px solid #ccc;
+}
+
+.downloadButton {
+  display: inline-block;
+  padding: 12px 30px;
+  background-color: #333;
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.downloadButton:hover {
+  background-color: #555;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .resumeContainer {
+    padding: 40px 30px;
+  }
+  
+  .name {
+    font-size: 28px;
+  }
+  
+  .contactInfo {
+    font-size: 13px;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .separator {
+    display: none;
+  }
+  
+  .experienceHeader,
+  .educationHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .experienceHeader span,
+  .educationHeader span {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .resumeContainer {
+    padding: 30px 20px;
+  }
+  
+  .name {
+    font-size: 24px;
+  }
+  
+  .sectionTitle {
+    font-size: 18px;
+  }
+  
+  .sectionContent,
+  .skillsContent p,
+  .experienceList li,
+  .projectList li {
+    font-size: 13px;
+  }
+}

@@ -1,0 +1,345 @@
+[
+  {
+    "id": "recycling-app",
+    "title": "Local Recycling Mobile App",
+    "imageSrc": "src/manghost-cafe.png",
+    "description": "iOS/Android app for Live Thrive, a local Atlanta hazardous waste recycling company with scheduling and data management features",
+    "skills": ["Flutter", "C#", "SQL", "Figma", "Maze"],
+    "date": "August 2024 - May 2025",
+    "demo": "",
+    "source": "https://github.com/seungabaek/JIC-4302-LiveThrive",
+    "content": {
+      "overview": "The purpose of our application was to provide our client, Live Thrive, with a personalized appointment scheduling platform to simplify the process of booking and checking in to recycling drop-off appointments.",
+      "problem": [
+        "Many Atlanta residents struggle to properly dispose of hazardous materials like batteries, paint, and electronics",
+        "These residents turn to Live Thrive",
+        "Live Thrive used a 3rd-party scheduling system with repeating bugs and complaints",
+        "Live Thrive needed a digital solution to streamline operations"
+      ],
+      "designProcess": {
+        "description": "The project began with extensive user research and prototyping in Figma. Our team focused on creating an intuitive user interface that would intentionally appeal to Live Thrive's user audience and their technical abilities.",
+        "keyFeatures": [
+          "Cross-platform support, allowing flexibility of choice for users",
+          "Calendar integration for scheduling drop-offs",
+          "GPS-enabled location finder for drop-off sites",
+          "Educational content about proper hazardous waste disposal"
+        ]
+      },
+      "usabilityTesting": {
+        "description": "Using Maze, we conducted comprehensive usability testing.",
+        "insights": [
+          "Users needed clearer categorization of hazardous materials",
+          "The scheduling flow required simplification",
+          "Push notifications for reminders were highly requested"
+        ]
+      },
+      "technicalStack": {
+        "frontend": {
+          "title": "Frontend (Flutter)",
+          "details": [
+            "Responsive UI design with Material Design principles",
+            "State management using Provider pattern",
+            "Custom animations for enhanced user experience",
+            "Integration with device calendar and location services"
+          ]
+        },
+        "backend": {
+          "title": "Backend (C# with .NET Core)",
+          "details": [
+            "RESTful API design for efficient data transfer",
+            "JWT authentication for secure user sessions",
+            "Integration with third-party services for notifications",
+            "Automated scheduling system with conflict resolution"
+          ]
+        },
+        "database": {
+          "title": "Database (SQL Server)",
+          "details": [
+            "Normalized database schema for efficient data storage",
+            "Stored procedures for complex scheduling queries",
+            "Real-time analytics for company insights"
+          ]
+        }
+      },
+      "keyFeatures": [
+        {
+          "name": "Smart Scheduling",
+          "description": "AI-powered scheduling that suggests optimal drop-off times based on user location and facility capacity"
+        },
+        {
+          "name": "Material Scanner",
+          "description": "Camera integration to help identify hazardous materials through image recognition"
+        },
+        {
+          "name": "Gamification",
+          "description": "Points and badges system to encourage regular recycling habits"
+        },
+        {
+          "name": "Community Dashboard",
+          "description": "Real-time statistics showing community impact"
+        }
+      ],
+      "impact": [
+        "40% increase in hazardous waste collection efficiency",
+        "60% reduction in missed appointments",
+        "Over 1,000 active users in the first month",
+        "95% user satisfaction rating"
+      ],
+      "futureEnhancements": [
+        "Integration with local government waste management systems",
+        "Expansion to include regular recycling and composting",
+        "Multi-language support for broader community reach",
+        "Partnership with local schools for educational programs"
+      ],
+      "lessonsLearned": "This project reinforced the importance of user-centered design and iterative development. The combination of thorough usability testing and agile development allowed us to create a solution that truly serves the community's needs while advancing environmental sustainability."
+    }
+  },
+  {
+    "id": "manghost-cafe",
+    "title": "Manghost Café",
+    "imageSrc": "projects/manghost-cafe.png",
+    "description": "3D single player restaurant game with AI pathfinding and real-time gameplay mechanics",
+    "skills": ["Unity", "C#", "NavMesh", "Git"],
+    "date": "January 2025 - May 2025",
+    "demo": "",
+    "source": "https://github.gatech.edu/sbaek74/MangoTankGames",
+    "content": {
+      "overview": "Manghost Café is a 3D restaurant simulation game that combines strategic gameplay with real-time coordination. Players take on multiple roles to manage a bustling café, serving varying orders from customers within time constraints.",
+      "gameDesign": {
+        "concept": "The game draws inspiration from popular cooking games like Overcooked and Not Your Neighbor, but adds unique mechanics focused on ---",
+        "coreGameplay": "Players must balance speed, accuracy, and customer happiness to succeed"
+      },
+      "technicalImplementation": {
+        "stateMachine": {
+          "description": "Each player character operates on a finite state machine",
+          "states": [
+            "Idle - Awaiting player input",
+            "Moving - Navigating to target location",
+            "Cooking - Preparing food items",
+            "Carrying - Transporting items",
+            "Serving - Delivering orders to customers"
+          ]
+        },
+        "aiCustomers": {
+          "description": "NavMesh-based pathfinding creates realistic customer movement",
+          "features": [
+            "Dynamic obstacle avoidance for crowded restaurants",
+            "Patience meters that affect tipping and reviews",
+            "Group behavior for parties dining together",
+            "Varied customer types with different preferences and patience levels"
+          ]
+        },
+        "multiplayer": {
+          "description": "Uses Unity's Mirror networking framework",
+          "architecture": [
+            "Host-Client Architecture: One player hosts the game server",
+            "State Synchronization: Real-time sync of player positions and actions",
+            "Input Prediction: Client-side prediction for responsive controls",
+            "Lag Compensation: Interpolation to handle network delays"
+          ]
+        }
+      },
+      "gameMechanics": {
+        "orderSystem": [
+          "Dynamic order generation based on restaurant level",
+          "Combo system for serving multiple orders quickly",
+          "Special orders with bonus rewards",
+          "Rush hour events with increased customer flow"
+        ],
+        "uiElements": [
+          "Order tickets that update dynamically",
+          "Customer satisfaction indicators",
+          "Revenue and tip tracking",
+          "Upgrade menu for restaurant improvements"
+        ]
+      },
+      "optimization": [
+        "Object Pooling: Reusing customer and food objects",
+        "LOD System: Reduced detail for distant objects",
+        "Batch Rendering: Combining similar sprites",
+        "Efficient Pathfinding: Caching common paths"
+      ],
+      "artAndAudio": {
+        "visualStyle": [
+          "Hand-drawn 2D sprites with smooth animations",
+          "Particle effects for cooking and serving",
+          "Dynamic lighting for atmosphere"
+        ],
+        "audio": [
+          "Cheerful background music with intensity scaling",
+          "Satisfying sound effects for every action"
+        ]
+      },
+      "levels": [
+        {
+          "name": "Classic Diner",
+          "description": "Simple layout for learning mechanics"
+        },
+        {
+          "name": "Sushi Bar",
+          "description": "Conveyor belt mechanics"
+        },
+        {
+          "name": "Food Truck",
+          "description": "Limited space challenges"
+        },
+        {
+          "name": "Rooftop Restaurant",
+          "description": "Multiple floors and elevators"
+        }
+      ],
+      "progression": [
+        "Experience points for completed orders",
+        "Unlockable recipes and equipment",
+        "Restaurant customization options",
+        "Leaderboards for competitive players"
+      ],
+      "challenges": [
+        "Synchronization Issues: Ensuring all players see consistent game state",
+        "Pathfinding Conflicts: Handling multiple AI agents in tight spaces",
+        "Performance on Low-End Devices: Optimizing for broad compatibility",
+        "Balancing Difficulty: Creating fun challenges for all skill levels"
+      ],
+      "futureUpdates": [
+        "Workshop support for custom restaurants",
+        "Seasonal events with special recipes",
+        "Competitive tournament mode",
+        "Mobile port with cross-platform play"
+      ]
+    }
+  },
+  {
+    "id": "threat-intelligence",
+    "title": "Threat Intelligence Sharing System",
+    "imageSrc": "projects/threat-intelligence.png",
+    "description": "Decentralized metadata-sharing platform for cyber threat intelligence using peer-to-peer technology",
+    "skills": ["Go", "libp2p", "Docker", "JSON-RPC"],
+    "date": "August 2024",
+    "demo": "",
+    "source": "https://github.com/seungabaek/threat-intelligence",
+    "content": {
+      "overview": "In today's interconnected digital landscape, sharing cyber threat intelligence quickly and securely is crucial for organizational defense. This project develops a decentralized platform that enables peer-to-peer sharing of threat intelligence metadata without relying on centralized infrastructure.",
+      "problemStatement": {
+        "centralizedIssues": [
+          "Single points of failure that attackers can target",
+          "Trust issues with centralized authorities",
+          "Scalability constraints as data volumes grow",
+          "Privacy concerns when sharing sensitive security data",
+          "High infrastructure costs for maintaining central servers"
+        ],
+        "irisImprovements": [
+          "Fully decentralized architecture with no central authority",
+          "Enhanced privacy through selective disclosure",
+          "Improved efficiency via intelligent chunk distribution",
+          "Better resilience against network partitions"
+        ]
+      },
+      "architecture": {
+        "coreComponents": {
+          "description": "The system consists of several interconnected components",
+          "components": [
+            "Host - P2P network host",
+            "DHT - Distributed hash table for peer discovery",
+            "PubSub - Publishing/subscription system",
+            "Storage - Local data storage",
+            "Metadata Manager - Chunk management system"
+          ]
+        },
+        "networkLayer": {
+          "description": "Built on libp2p for robust P2P networking",
+          "features": [
+            "Peer Discovery: DHT-based peer finding",
+            "NAT Traversal: Automatic hole punching",
+            "Secure Communication: TLS encryption by default",
+            "Protocol Multiplexing: Multiple protocols over single connection"
+          ]
+        }
+      },
+      "technicalDetails": {
+        "chunkingAlgorithm": {
+          "description": "Large threat intelligence datasets are broken into manageable chunks",
+          "process": [
+            "Data divided into fixed-size chunks",
+            "Each chunk gets unique identifier (SHA-256 hash)",
+            "Metadata tracks chunk relationships",
+            "Efficient reassembly on retrieval"
+          ]
+        },
+        "protocol": {
+          "description": "Custom JSON-RPC protocol for metadata exchange",
+          "messages": [
+            "ChunkRequest: Request specific chunks by ID",
+            "ChunkResponse: Deliver requested chunks",
+            "MetadataAnnounce: Announce availability of new metadata",
+            "PeerQuery: Discover peers with specific data"
+          ]
+        },
+        "distribution": {
+          "rarityFirst": [
+            "Tracks chunk availability across network",
+            "Preferentially shares chunks with few replicas",
+            "Prevents popular chunks from dominating bandwidth"
+          ],
+          "adaptiveReplication": [
+            "Chunk access patterns",
+            "Network topology changes",
+            "Node reliability scores",
+            "Available storage capacity"
+          ]
+        }
+      },
+      "security": {
+        "dataIntegrity": [
+          "SHA-256 hashing for chunk verification",
+          "Merkle trees for efficient dataset validation",
+          "Digital signatures for authenticity"
+        ],
+        "privacy": [
+          "Optional encryption for sensitive metadata",
+          "Onion routing for anonymous requests",
+          "Selective disclosure mechanisms"
+        ]
+      },
+      "deployment": {
+        "docker": {
+          "description": "Containerized for easy deployment",
+          "benefits": [
+            "Consistent environment across platforms",
+            "Easy scaling with orchestration tools",
+            "Simplified dependency management"
+          ]
+        }
+      },
+      "performance": {
+        "caching": [
+          "Memory cache for hot chunks",
+          "Disk cache for recent chunks",
+          "Predictive prefetching based on access patterns"
+        ],
+        "bandwidth": [
+          "Rate limiting per peer connection",
+          "Priority queues for urgent requests",
+          "Compression for chunk transfers"
+        ],
+        "metrics": [
+          "Sub-second chunk retrieval for cached data",
+          "Linear scalability up to 1000 nodes",
+          "99.9% chunk availability with 5x replication",
+          "60% bandwidth reduction compared to naive flooding"
+        ]
+      },
+      "applications": [
+        "Sharing indicators of compromise (IOCs) between organizations",
+        "Distributing vulnerability information",
+        "Collaborative threat hunting",
+        "Incident response coordination"
+      ],
+      "futureWork": [
+        "Machine learning for predictive chunk distribution",
+        "Blockchain integration for immutable audit trails",
+        "Advanced query capabilities using bloom filters",
+        "Integration with existing SIEM platforms"
+      ]
+    }
+  }
+]
