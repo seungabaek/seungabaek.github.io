@@ -44,12 +44,38 @@ export const BlogPost = () => {
     <>
       <p>{content.overview}</p>
       
+      {/* Team Section */}
+      {content.teamAndRoles && (
+        <>
+          <h2>Team & Contributions</h2>
+          <p>{content.teamAndRoles.description}</p>
+          <ul>
+            {content.teamAndRoles.members.map((member, index) => (
+              <li key={index}>{member}</li>
+            ))}
+          </ul>
+        </>
+      )}
+      
       <h2>The Problem</h2>
       <ul>
         {content.problem.map((item, index) => (
           <li key={index}>{item}</li>
         ))}
       </ul>
+      
+      {/* System Architecture */}
+      {content.systemArchitecture && (
+        <>
+          <h2>System Architecture</h2>
+          <p>{content.systemArchitecture.description}</p>
+          <ul>
+            {content.systemArchitecture.components.map((component, index) => (
+              <li key={index}>{component}</li>
+            ))}
+          </ul>
+        </>
+      )}
       
       <h2>Design Process</h2>
       <p>{content.designProcess.description}</p>
@@ -59,33 +85,25 @@ export const BlogPost = () => {
         ))}
       </ul>
       
-      <h2>Usability Testing</h2>
-      <p>{content.usabilityTesting.description}</p>
-      <ul>
-        {content.usabilityTesting.insights.map((insight, index) => (
-          <li key={index}>{insight}</li>
-        ))}
-      </ul>
-      
       <h2>Technical Implementation</h2>
       
-      <h3>{content.technicalStack.frontend.title}</h3>
+      <h3>{content.technicalImplementation.frontend.title}</h3>
       <ul>
-        {content.technicalStack.frontend.details.map((detail, index) => (
+        {content.technicalImplementation.frontend.details.map((detail, index) => (
           <li key={index}>{detail}</li>
         ))}
       </ul>
       
-      <h3>{content.technicalStack.backend.title}</h3>
+      <h3>{content.technicalImplementation.api.title}</h3>
       <ul>
-        {content.technicalStack.backend.details.map((detail, index) => (
+        {content.technicalImplementation.api.details.map((detail, index) => (
           <li key={index}>{detail}</li>
         ))}
       </ul>
       
-      <h3>{content.technicalStack.database.title}</h3>
+      <h3>{content.technicalImplementation.database.title}</h3>
       <ul>
-        {content.technicalStack.database.details.map((detail, index) => (
+        {content.technicalImplementation.database.details.map((detail, index) => (
           <li key={index}>{detail}</li>
         ))}
       </ul>
@@ -98,12 +116,41 @@ export const BlogPost = () => {
         </div>
       ))}
       
-      <h2>Impact and Results</h2>
-      <ul>
-        {content.impact.map((result, index) => (
-          <li key={index}>{result}</li>
-        ))}
-      </ul>
+      {/* UI/UX Highlights */}
+      {content.uiUxHighlights && (
+        <>
+          <h2>UI/UX Highlights</h2>
+          <ul>
+            {content.uiUxHighlights.map((highlight, index) => (
+              <li key={index}>{highlight}</li>
+            ))}
+          </ul>
+        </>
+      )}
+      
+      {/* Security Measures */}
+      {content.securityMeasures && (
+        <>
+          <h2>Security Measures</h2>
+          <ul>
+            {content.securityMeasures.map((measure, index) => (
+              <li key={index}>{measure}</li>
+            ))}
+          </ul>
+        </>
+      )}
+      
+      {/* Development Challenges */}
+      {content.challenges && (
+        <>
+          <h2>Development Challenges</h2>
+          <ul>
+            {content.challenges.map((challenge, index) => (
+              <li key={index}>{challenge}</li>
+            ))}
+          </ul>
+        </>
+      )}
       
       <h2>Future Enhancements</h2>
       <ul>
@@ -112,11 +159,18 @@ export const BlogPost = () => {
         ))}
       </ul>
       
+      {/* Impact - now a string instead of array */}
+      {content.impact && (
+        <>
+          <h2>Impact</h2>
+          <p>{content.impact}</p>
+        </>
+      )}
+      
       <h2>Lessons Learned</h2>
       <p>{content.lessonsLearned}</p>
     </>
   );
-
   // Unity Manghost Cafe
   const renderManghostCafeContent = (content) => (
     <>

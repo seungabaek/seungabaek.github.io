@@ -1,103 +1,160 @@
 [
   {
     "id": "recycling-app",
-    "title": "Local Recycling Mobile App",
-    "imageSrc": "src/manghost-cafe.png",
-    "description": "iOS/Android app for Live Thrive, a local Atlanta hazardous waste recycling company with scheduling and data management features",
-    "skills": ["Flutter", "C#", "SQL", "Figma", "Maze"],
+    "title": "Live Thrive CHaRM Mobile App",
+    "imageSrc": "projects/recycling-app.png",
+    "description": "Cross-platform full-stack mobile scheduling system for Live Thrive",
+    "skills": ["Flutter", "Dart", "C#", ".NET 8", "SQL", "Azure", "Firebase", "Figma"],
     "date": "August 2024 - May 2025",
     "demo": "",
     "source": "https://github.com/seungabaek/JIC-4302-LiveThrive",
     "content": {
-      "overview": "The purpose of our application was to provide our client, Live Thrive, with a personalized appointment scheduling platform to simplify the process of booking and checking in to recycling drop-off appointments.",
+      "overview": "Live Thrive's CHaRM (Center for Hard to Recycle Materials) is a local nonprofit that needed a solution to their appointment scheduling process. Our team of five Georgia Tech CS students developed a comprehensive mobile platform that consolidates scheduling, check-in processes, and recycling information into a single cross-platform application. The app not only simplifies the recycling drop-off experience but also provides a foundation for future expansion into facility tours, volunteer scheduling, and educational events.",
+      
+      "teamAndRoles": {
+        "description": "This was our junior capstone project with rotating roles so all members were exposed to new skills:",
+        "members": [
+          "Seung-a Baek (me) - Category selection, FAQ system, location views, API integration",
+          "Joshua Buchsbaum - API development, QR code generation, appointment management",
+          "Keegan Thompson - Calendar widget, home screen, facility management",
+          "Ryan Seo - Check-in page, appointment booking flow, signup integration",
+          "Joseph Atkinson - Staff features, location filtering, admin appointment management"
+        ]
+      },
+      
       "problem": [
-        "Many Atlanta residents struggle to properly dispose of hazardous materials like batteries, paint, and electronics",
-        "These residents turn to Live Thrive",
-        "Live Thrive used a 3rd-party scheduling system with repeating bugs and complaints",
-        "Live Thrive needed a digital solution to streamline operations"
+        "Live Thrive's existing appointment system was done through a third-party system (SimplyBook)",
+        "No consolidated platform for scheduling recycling drop-offs",
+        "Lack of real-time availability information for multiple facility locations",
+        "Manual check-in process causing delays and confusion",
+        "Limited accessibility to information about accepted items and fees",
+        "No distinction between resident, business, and VIP appointment types"
       ],
+      
+      "systemArchitecture": {
+        "description": "We designed a three-tier architecture prioritizing security, scalability, and cross-platform compatibility:",
+        "components": [
+          "Frontend: Flutter/Dart for unified iOS/Android development",
+          "Backend: .NET 8 API hosted on Azure App Service",
+          "Database: Azure SQL Database with stored procedures",
+          "Authentication: Firebase for secure user management",
+          "External Services: QR code generation for contactless check-in"
+        ]
+      },
+      
       "designProcess": {
-        "description": "The project began with extensive user research and prototyping in Figma. Our team focused on creating an intuitive user interface that would intentionally appeal to Live Thrive's user audience and their technical abilities.",
+        "description": "Our design process centered on Nielsen's usability heuristics and Live Thrive's brand identity:",
         "keyFeatures": [
-          "Cross-platform support, allowing flexibility of choice for users",
-          "Calendar integration for scheduling drop-offs",
-          "GPS-enabled location finder for drop-off sites",
-          "Educational content about proper hazardous waste disposal"
+          "Minimalist interface with large, intuitive buttons for accessibility",
+          "Consistent color scheme matching Live Thrive's branding",
+          "Error prevention through confirmation dialogs and input validation",
+          "Real-world metaphors (calendar icons, map pins, phone symbols)",
+          "Comprehensive FAQ system with 'flippable card' design"
         ]
       },
-      "usabilityTesting": {
-        "description": "Using Maze, we conducted comprehensive usability testing.",
-        "insights": [
-          "Users needed clearer categorization of hazardous materials",
-          "The scheduling flow required simplification",
-          "Push notifications for reminders were highly requested"
-        ]
-      },
-      "technicalStack": {
+      
+      "technicalImplementation": {
         "frontend": {
-          "title": "Frontend (Flutter)",
+          "title": "Frontend (Flutter/Dart)",
           "details": [
-            "Responsive UI design with Material Design principles",
-            "State management using Provider pattern",
-            "Custom animations for enhanced user experience",
-            "Integration with device calendar and location services"
+            "Single codebase for both iOS and Android platforms",
+            "Custom calendar widget for intuitive date selection",
+            "QR code generation and scanning for contactless check-in",
+            "Responsive design adapting to various screen sizes",
+            "State management for real-time appointment updates"
           ]
         },
-        "backend": {
-          "title": "Backend (C# with .NET Core)",
+        "api": {
+          "title": "API (.NET 8/C#)",
           "details": [
-            "RESTful API design for efficient data transfer",
-            "JWT authentication for secure user sessions",
-            "Integration with third-party services for notifications",
-            "Automated scheduling system with conflict resolution"
+            "RESTful endpoints with HTTPS encryption",
+            "JSON data format for efficient client-server communication",
+            "Azure App Service hosting for reliable uptime",
+            "Stored procedure calls for optimized database operations",
+            "Role-based access control for admin/staff features"
           ]
         },
         "database": {
-          "title": "Database (SQL Server)",
+          "title": "Database (Azure SQL)",
           "details": [
-            "Normalized database schema for efficient data storage",
-            "Stored procedures for complex scheduling queries",
-            "Real-time analytics for company insights"
+            "Relational schema with 6 core entities: users, appointments, facilities, facility_days, recyclable_items, example_items",
+            "Foreign key relationships ensuring data integrity",
+            "Stored procedures for complex queries and business logic",
+            "Appointment type system (Resident, Business, VIP)",
+            "Facility-specific scheduling with dynamic availability"
           ]
         }
       },
+      
       "keyFeatures": [
         {
-          "name": "Smart Scheduling",
-          "description": "AI-powered scheduling that suggests optimal drop-off times based on user location and facility capacity"
+          "name": "Smart Appointment Booking",
+          "description": "Multi-step booking process with location selection, category choice, and real-time availability calendar"
         },
         {
-          "name": "Material Scanner",
-          "description": "Camera integration to help identify hazardous materials through image recognition"
+          "name": "QR Code Check-in",
+          "description": "Contactless check-in system generating unique QR codes for each appointment"
         },
         {
-          "name": "Gamification",
-          "description": "Points and badges system to encourage regular recycling habits"
+          "name": "Multi-User Support",
+          "description": "Role-based access for residents, businesses, VIP users, staff, and administrators"
         },
         {
-          "name": "Community Dashboard",
-          "description": "Real-time statistics showing community impact"
+          "name": "Admin Dashboard",
+          "description": "Comprehensive tools for viewing weekly appointment volumes, managing availability, and canceling bookings"
+        },
+        {
+          "name": "Items Database",
+          "description": "Searchable catalog of accepted recyclable items with fees and examples"
+        },
+        {
+          "name": "Facility Information",
+          "description": "Real-time hours, addresses, and contact information for multiple CHaRM locations"
         }
       ],
-      "impact": [
-        "40% increase in hazardous waste collection efficiency",
-        "60% reduction in missed appointments",
-        "Over 1,000 active users in the first month",
-        "95% user satisfaction rating"
+      
+      "uiUxHighlights": [
+        "Color-coded appointment density visualization for admins (green-orange-red scale)",
+        "Flippable FAQ cards for intuitive information discovery",
+        "Consistent back navigation throughout the app",
+        "Error prevention through grayed-out buttons and confirmation dialogs",
+        "Visual feedback for all user actions"
       ],
+      
+      "securityMeasures": [
+        "Firebase Authentication preventing password storage in main database",
+        "HTTPS encryption for all API communications",
+        "Azure firewall restricting database access",
+        "Role-based permissions system",
+        "Secure handling of minimal PII (only emails and zip codes)"
+      ],
+      
+      "challenges": [
+        "Coordinating development across a 5-person team",
+        "Integrating multiple technologies (Flutter, .NET, SQL) seamlessly",
+        "Designing intuitive UI for diverse user types (residents, businesses, admins)",
+        "Implementing real-time appointment availability across multiple facilities",
+        "Balancing feature richness with app performance"
+      ],
+      
       "futureEnhancements": [
-        "Integration with local government waste management systems",
-        "Expansion to include regular recycling and composting",
-        "Multi-language support for broader community reach",
-        "Partnership with local schools for educational programs"
+        "Facility tour scheduling integration",
+        "Volunteer event management system",
+        "Payment processing for recycling fees",
+        "Push notifications for appointment reminders",
+        "Multi-language support for broader accessibility",
+        "Analytics dashboard for facility usage patterns"
       ],
-      "lessonsLearned": "This project reinforced the importance of user-centered design and iterative development. The combination of thorough usability testing and agile development allowed us to create a solution that truly serves the community's needs while advancing environmental sustainability."
+      
+      "impact": "This project transformed Live Thrive's appointment scheduling from a fragmented manual process to a streamlined digital experience. The cross-platform solution ensures accessibility for all users regardless of device preference, while the admin tools provide unprecedented visibility into facility operations.",
+      
+      "lessonsLearned": "Working on a team of five taught me valuable lessons about collaborative development, from coordinating API integrations to maintaining consistent UI/UX across different developers' contributions. The project reinforced the importance of user-centered design, especially when creating solutions for diverse user groups with varying technical expertise."
     }
   },
   {
     "id": "manghost-cafe",
     "title": "Manghost Café",
-    "imageSrc": "projects/manghost-cafe.png",
+    "imageSrc": "/projects/manghost-cafe.png",
     "description": "3D single player restaurant game with AI pathfinding and real-time gameplay mechanics",
     "skills": ["Unity", "C#", "NavMesh", "Git"],
     "date": "January 2025 - May 2025",

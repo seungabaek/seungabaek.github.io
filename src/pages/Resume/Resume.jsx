@@ -124,7 +124,7 @@ export const Resume = () => {
           <div className={styles.projectItem}>
             <h3>Local Recycling Mobile App (Flutter, C#, SQL, Figma, Maze)</h3>
             <ul className={styles.projectList}>
-              <li>Prototyped an iOS/Android app for local hazardous waste recycling company, Live Thrive, using Figma and 
+              <li>Developed an iOS/Android app for local hazardous waste recycling company, Live Thrive, using Figma and 
               conducted usability testing with Maze</li>
               <li>Developed the front-end in Flutter with a C# and SQL backend to streamline recycling drop-off scheduling</li>
               <li>Implemented interactive user flows and data management features with API calls to enhance accessibility</li>
