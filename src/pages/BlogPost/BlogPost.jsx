@@ -198,13 +198,6 @@ export const BlogPost = () => {
         ))}
       </ul>
       
-      <h3>Multiplayer Architecture</h3>
-      <p>{content.technicalImplementation.multiplayer.description}:</p>
-      <ul>
-        {content.technicalImplementation.multiplayer.architecture.map((item, index) => (
-          <li key={index}>{item}</li>
-        ))}
-      </ul>
       
       <h2>Game Mechanics</h2>
       <h3>Order System</h3>

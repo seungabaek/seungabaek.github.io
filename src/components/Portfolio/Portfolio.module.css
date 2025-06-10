@@ -1,7 +1,7 @@
 @import "../../vars.css";
 
 .container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 40px auto;
     padding: 5px;
     color: var(--color-text);

@@ -26,11 +26,11 @@ export const Portfolio = () => {
     },
     {
       title: "👨‍🏫 Teaching Assistant",
-      content: "Fourth-semester TA for CS 1332 (Data Structures & Algorithms). I lead recitations for 20+ students and hold weekly office hours, helping 1000+ students master Java-based algorithms."
+      content: "Fourth-semester TA for CS 1332 (Data Structures & Algorithms). I lead recitations for 20+ students and hold weekly office hours, helping a class size of 1000+ students master Java-based algorithms."
     },
     {
       title: "🌎 Sustainability Advocate",
-      content: "International Science Fair Finalist for sustainable technology research. Active member of Students Organizing Sustainability at GT, passionate about using tech for environmental impact."
+      content: "International Science Fair Finalist for sustainable technology research. Member of Students Organizing Sustainability at GT, passionate about using tech for environmental impact."
     },
     {
       title: "📻 Radio DJ & Skydiver",

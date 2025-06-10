@@ -185,15 +185,6 @@
             "Group behavior for parties dining together",
             "Varied customer types with different preferences and patience levels"
           ]
-        },
-        "multiplayer": {
-          "description": "Uses Unity's Mirror networking framework",
-          "architecture": [
-            "Host-Client Architecture: One player hosts the game server",
-            "State Synchronization: Real-time sync of player positions and actions",
-            "Input Prediction: Client-side prediction for responsive controls",
-            "Lag Compensation: Interpolation to handle network delays"
-          ]
         }
       },
       "gameMechanics": {
@@ -218,7 +209,7 @@
       ],
       "artAndAudio": {
         "visualStyle": [
-          "Hand-drawn 2D sprites with smooth animations",
+          "3D sprites with smooth animations",
           "Particle effects for cooking and serving",
           "Dynamic lighting for atmosphere"
         ],
@@ -229,20 +220,20 @@
       },
       "levels": [
         {
-          "name": "Classic Diner",
+          "name": "East",
           "description": "Simple layout for learning mechanics"
         },
         {
-          "name": "Sushi Bar",
-          "description": "Conveyor belt mechanics"
+          "name": "Medium",
+          "description": "--"
         },
         {
-          "name": "Food Truck",
-          "description": "Limited space challenges"
+          "name": "Hard",
+          "description": "--"
         },
         {
           "name": "Rooftop Restaurant",
-          "description": "Multiple floors and elevators"
+          "description": "--"
         }
       ],
       "progression": [
