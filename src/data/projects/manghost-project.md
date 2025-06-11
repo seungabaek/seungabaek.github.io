@@ -1,5 +1,5 @@
 ---
-title: 'Manghost Cafe, a 3D Unity Game'
+title: 'Manghost Café'
 description: '3D single player restaurant game with AI pathfinding and real-time gameplay mechanics'
 pubDate: 'May 20 2025'
 heroImage: '/projects/manghost-cafe.png'
@@ -9,128 +9,141 @@ demo: ''
 source: 'https://github.gatech.edu/sbaek74/MangoTankGames'
 ---
 
-A 3D single player game inspired by Overcooked!
+# Introduction
+
+Manghost Café is a 3D restaurant simulation game made in Unity that combines strategic gameplay with real-time coordination. Players manage a bustling mango-themed café by switching between two key roles: **Waiter** and **Chef**. The game challenges players to efficiently serve AI customers with varying orders within strict time constraints.
+
+The core gameplay revolves around role management, where players must strategically switch between seating customers, taking orders, cooking mango-based items, and serving completed dishes. Success depends on balancing speed, accuracy, and customer satisfaction across a two-story café environment.
 
 ---
 
-### Introduction
+## Game Concept & Mechanics
 
-Manghost Café is a 3D restaurant simulation game made in Unity that combines strategic gameplay with real-time coordination. Players take on multiple roles to manage a bustling café, serving varying orders from customers within time constraints. The game draws inspiration from Overcooked (my favorite multiplayer game) and Not Your Neighbor.
+### Role-Switching System
+Players can seamlessly switch between two essential roles:
 
-Although the final game strayed a bit from the original vision, the goal of the game is to successfully switch between multiple roles to seat/take orders from customers, cook mango-themed desserts, and serve the correct order to customers all within a time constraint. It has multiple difficulty levels and a multi-level map. Players must balance speed, accuracy, and customer happiness to succeed.
+**Waiter Role (Default Start)**
+- **Customer Seating**: Use the host stand to assign tables to waiting customers
+- **Order Taking**: Interact with seated customers to receive their mango smoothie orders
+- **Food Serving**: Pick up completed orders from the counter and deliver to customers
+- **Customer Management**: Ensure all customers are served before the time limit
 
----
+**Chef Role (Press 'T' to Switch)**
+- **Mango Preparation**: Use capsule "Mangoes" in the blender for smoothies
+- **Alternative Cooking**: Use box "Mangoes" in the oven for different preparations
+- **Timing Management**: Remove items before overcooking (visual cues show cooking progress)
+- **Order Fulfillment**: Place completed items on pickup spots for the Waiter
 
-### Game Design & Concept
-
-The game draws inspiration from popular cooking games like Overcooked and Not Your Neighbor, but adds unique mechanics focused on single-player role management and customer satisfaction. The core gameplay loop revolves around managing multiple aspects of restaurant operations simultaneously - from seating customers to cooking and serving their orders within strict time limits.
-
----
-
-### Technical Architecture
-
-## State Machine Implementation
-Each player character operates on a finite state machine:
-
-- **Idle** - Awaiting player input
-- **Moving** - Navigating to target location
-- **Cooking** - Preparing food items
-- **Carrying** - Transporting items
-- **Serving** - Delivering orders to customers
-
-## AI Customer Behavior
-NavMesh-based pathfinding creates realistic customer movement:
-
-- Dynamic obstacle avoidance for crowded restaurants
-- Patience meters that affect tipping and reviews
-- Group behavior for parties dining together
-- Varied customer types with different preferences and patience levels
+### Win/Lose Conditions
+- **Victory**: Serve all customers their orders within the time limit (~2 minutes)
+- **Defeat**: Fail to complete all orders before time runs out
+- **Progression**: Planned levels with increased customer count and difficulty
 
 ---
 
-### Game Mechanics
+## Technical Implementation
 
-## Order System
-- Dynamic order generation based on restaurant level
-- Combo system for serving multiple orders quickly
-- Special orders with bonus rewards
-- Rush hour events with increased customer flow
+### AI Customer Behavior
+The game features sophisticated AI customers that operate on state machines:
 
-## Interactive UI Elements
-- Order tickets that update dynamically
-- Customer satisfaction indicators
-- Revenue and tip tracking
-- Upgrade menu for restaurant improvements
+- **Queue Management**: Customers automatically form lines while waiting for table assignments
+- **Pathfinding**: NavMesh-based movement allows customers to navigate the two-story café
+- **Table Assignment**: AI customers move to assigned tables and wait for service
+- **Order Behavior**: Customers display patience and satisfaction based on service speed
+- **Dynamic Spawning**: Customer spawner manages flow and difficulty scaling
 
----
+### Multi-Level Environment
+- **Two-Story Design**: Café features ground floor and second floor dining areas
+- **Interactive Objects**: Host stand, tables, blender, oven, pickup counters, trash cans
+- **Navigation Systems**: Stairs and walkways enable fluid movement between floors
+- **Strategic Layout**: Design encourages efficient player movement and role switching
 
-### Performance Optimization
-
-To ensure smooth gameplay across various hardware configurations, I implemented several optimization techniques:
-
-- **Object Pooling**: Reusing customer and food objects
-- **LOD System**: Reduced detail for distant objects
-- **Batch Rendering**: Combining similar sprites
-- **Efficient Pathfinding**: Caching common paths
+### Control System
+- **Movement**: WASD keys for character navigation
+- **Interactions**: E key for customer/object interactions, Q key for pickup/serving
+- **Role Switch**: T key toggles between Waiter and Chef roles
+- **Intuitive Design**: Clear visual feedback for all interactive elements
 
 ---
 
-### Art Style & Audio
+## Development Challenges
 
-## Visual Style
-- 3D sprites with smooth animations
-- Particle effects for cooking and serving
-- Dynamic lighting for atmosphere
+### Team Coordination
+Working with a five-person team required careful coordination of assets and code:
 
-## Audio Design
-- Cheerful background music with intensity scaling
-- Satisfying sound effects for every action
+**Art & Environment (Jason Katz)**
+- Multi-story café structure with walls and stairs
+- Interactive furniture: tables, cooking equipment, trash cans
+- Mango ingredient prefabs (capsule and box variants)
 
----
+**UI & Customer Systems (Seung-a Baek)**
+- Customer AI prefab development
+- Complete UI design and scene materials
+- Customer spawning and queue management systems
 
-### Level Design
+**Interaction Systems (Jiyoon Lee)**
+- Player role mechanics (Chef and Waiter functionality)
+- Pickup and serving interaction systems
+- Counter and pickup spot placement
 
-The game features progressively challenging levels:
+**Game Flow & Polish (Hojin Kim)**
+- Win/lose screen implementation
+- Customer order management
+- UI text and labeling systems
+- Background music integration
 
-- **Easy**: Simple layout for learning mechanics
-- **Medium**: Standard difficulty with balanced customer flow
-- **Hard**: High-pressure environment with rapid customer turnover
+**Core Systems (Deniz Timurturkan)**
+- Initial scene setup and main menu
+- Customer pathfinding and line management
+- Host stand functionality and camera systems
 
----
+### Technical Hurdles
 
-### Player Progression
+**AI State Management**
+- Implementing complex customer behavior states
+- Coordinating queue positioning based on customer count
+- Ensuring smooth transitions between waiting, seated, and served states
 
-- Experience points for completed orders
-- Unlockable recipes and equipment
-- Restaurant customization options
-- Leaderboards for competitive players
+**Performance Optimization**
+- Managing multiple AI agents simultaneously
+- Efficient pathfinding across two-story environment
+- Maintaining 60fps during peak customer periods
 
----
-
-### Development Challenges
-
-Creating a single-player restaurant management game came with unique challenges:
-
-- **State Synchronization**: Ensuring all game systems update consistently
-- **Pathfinding Conflicts**: Handling multiple AI agents in tight spaces
-- **Performance on Low-End Devices**: Optimizing for broad compatibility
-- **Balancing Difficulty**: Creating fun challenges for all skill levels
-
----
-
-### Future Updates
-
-The game's modular architecture allows for exciting future content:
-
-- Workshop support for custom restaurants
-- Seasonal events with special recipes
-- Competitive tournament mode
-- Mobile port with cross-platform play
+**Interaction Systems**
+- Creating intuitive role-switching mechanics
+- Implementing precise timing for cooking systems
+- Designing clear visual feedback for player actions
 
 ---
 
-### Lessons Learned
+## Current Implementation Status
 
-This project taught me valuable lessons about game development, particularly in creating engaging AI behaviors and optimizing performance for real-time gameplay. Working with Unity's NavMesh system gave me deep insights into pathfinding algorithms, while implementing the state machine pattern helped me create more maintainable and extensible code.
+### Completed Features
+- Full role-switching between Waiter and Chef
+- AI customer spawning, queuing, and table assignment
+- Complete cooking system with timing mechanics
+- Multi-story café environment with navigation
+- Win/lose conditions with restart functionality
+- Basic food preparation and serving mechanics
 
-The challenge of balancing gameplay difficulty while maintaining fun was particularly educational. Through extensive playtesting and iteration, I learned how small tweaks to timing, customer patience, and order complexity can dramatically affect the player experience.
+### Planned Improvements
+- **Audio Integration**: Sound effects for all interactions and ambient café sounds
+- **Animation Systems**: Character joint movement and cooking animations
+- **Progress Indicators**: Customer patience bars and cooking progress meters
+- **Performance Optimization**: Better handling of native resolution builds
+- **Level Progression**: Multiple difficulty levels with varying customer counts
+
+### Known Technical Issues
+- **Resolution Performance**: Game performance decreases significantly at native resolution
+- **Audio Implementation**: Sound system planned for final iteration
+- **Visual Polish**: Cooking progress bars and customer patience indicators pending
+
+---
+
+## Lessons Learned
+
+This project taught valuable lessons about collaborative game development and Unity optimization. Managing a complex state-driven game with multiple interacting systems required careful architecture planning and frequent team communication.
+
+The challenge of creating engaging single-player gameplay while maintaining the frantic energy of restaurant management games like Overcooked helped us understand the importance of clear visual feedback and intuitive controls. Implementing AI customers that feel alive and responsive while maintaining performance was particularly educational.
+
+Most importantly, working with a diverse team where each member contributed both assets and code taught us how to integrate different development skills into a cohesive final product.

@@ -2,10 +2,11 @@
   /* colors */
   --color-text: #302f2fd9;
   --color-primary: #ffffff;
-  --color-secondary: #c1c1c14b;
+  --color-secondary: #ffffff;
   --color-dark: #fff;
   --color-bg: #f9f3f3;
   --color-bg2:rgb(174, 2, 2)0;
+  --color-lines: #8e8c8cd9;
 
   /* fonts */
   --font-roboto: ftnk;

@@ -1,8 +1,8 @@
 ---
-title: 'Live Thrive Recycling Full-Stack Mobile Application'
+title: 'Live Thrive CHaRM Mobile App'
 description: 'Cross-platform full-stack mobile scheduling system for Live Thrive'
 pubDate: 'May 20 2025'
-heroImage: '/projects/recycling-app.png'
+heroImage: '/assets/projects/livethrive3D.png'
 skills: ['Flutter', 'Dart', 'C#', '.NET 8', 'SQL', 'Azure', 'Firebase', 'Figma']
 date: 'August 2024 - May 2025'
 demo: ''
@@ -11,10 +11,7 @@ source: 'https://github.com/seungabaek/JIC-4302-LiveThrive'
 
 My first completely full-stack application from scratch for a client!
 
----
-
 ### Introduction
-
 For my junior capstone project, I worked with a team of 4 other CS students to create a full-stack mobile application compatible on both iOS and Android platforms for a local nonprofit. As background, Live Thrive's CHaRM (Center for Hard to Recycle Materials) facilities encourage a sustainable Atlanta community by providing a place for local residents and businesses to drop off "hard-to-recycle" materials. This can range from appliances to chemicals to compost and etc.
 
 To drop off materials, an appointment is required. They used SimplyBook as a 3rd-party booking system to manage all appointments. This meant limited control and a lot of complaints. Our team of five Georgia Tech CS students developed a comprehensive mobile platform that consolidates scheduling, check-in processes, and recycling information into a single cross-platform application. The app not only simplifies the recycling drop-off experience but also provides a foundation for future expansion into facility tours, volunteer scheduling, and educational events.
@@ -103,23 +100,41 @@ Our design process centered on Nielsen's usability heuristics and Live Thrive's 
 
 ### Key Features Implemented
 
-## Smart Appointment Booking
+## User Experience Features
+
+#### Smart Appointment Booking
 Multi-step booking process with location selection, category choice, and real-time availability calendar
 
-## QR Code Check-in
+#### QR Code Check-in System
 Contactless check-in system generating unique QR codes for each appointment
 
-## Multi-User Support
-Role-based access for residents, businesses, VIP users, staff, and administrators
-
-## Admin Dashboard
-Comprehensive tools for viewing weekly appointment volumes, managing availability, and canceling bookings
-
-## Items Database
+#### Comprehensive Items Database
 Searchable catalog of accepted recyclable items with fees and examples
 
-## Facility Information
-Real-time hours, addresses, and contact information for multiple CHaRM locations
+#### Real-time Facility Information
+Current hours, addresses, and contact information for multiple CHaRM locations
+
+## Administrative Features
+
+#### Multi-User Role System
+Role-based access for residents, businesses, VIP users, staff, and administrators
+
+#### Admin Dashboard
+Comprehensive tools for viewing weekly appointment volumes, managing availability, and canceling bookings
+
+#### Staff Management Tools
+Backend administrative controls for managing facility operations and user accounts
+
+## Technical Features
+
+#### Cross-Platform Compatibility
+Single Flutter codebase running natively on both iOS and Android devices
+
+#### Secure Authentication
+Firebase integration preventing password storage in main database
+
+#### Real-time Data Synchronization
+Live updates for appointment availability and facility information
 
 ---
 

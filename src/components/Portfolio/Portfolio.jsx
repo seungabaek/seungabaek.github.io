@@ -1,21 +1,125 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Portfolio.module.css";
 import { getImageUrl } from "../../utils";
 
-// Import data from JSON files
+// Import data from JSON files (keeping history and skills as JSON)
 import historyData from "../../data/history.json";
-import projectsData from "../../data/projects.json";
 import skillsData from "../../data/skills.json";
 
 export const Portfolio = () => {
   const [activeTab, setActiveTab] = useState("projects");
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  const enhancedProjects = projectsData.map(project => ({
-    ...project,
-    tags: project.skills
-  }));
+  // Dynamic import approach for markdown files
+  const loadMarkdownFile = async (projectId) => {
+    try {
+      let markdownModule;
+      
+      switch (projectId) {
+        case "recycling-app":
+          markdownModule = await import("/src/data/projects/livethrive-project.md?raw");
+          break;
+        case "manghost-cafe":
+          markdownModule = await import("/src/data/projects/manghost-project.md?raw");
+          break;
+        case "threat-intelligence":
+          markdownModule = await import("/src/data/projects/threat-intelligence.md?raw");
+          break;
+        default:
+          throw new Error("Project not found");
+      }
+      
+      return markdownModule.default;
+    } catch (error) {
+      console.error("Error loading markdown:", error);
+      throw error;
+    }
+  };
+
+  // Simple frontmatter parser
+  const parseFrontmatter = (content) => {
+    const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/;
+    const match = content.match(frontmatterRegex);
+    
+    if (!match) {
+      return { data: {}, content };
+    }
+    
+    const frontmatterText = match[1];
+    const markdownContent = match[2];
+    
+    // Simple YAML parser for frontmatter
+    const data = {};
+    frontmatterText.split('\n').forEach(line => {
+      const colonIndex = line.indexOf(':');
+      if (colonIndex > 0) {
+        const key = line.substring(0, colonIndex).trim();
+        let value = line.substring(colonIndex + 1).trim();
+        
+        // Remove quotes if present
+        if ((value.startsWith('"') && value.endsWith('"')) || 
+            (value.startsWith("'") && value.endsWith("'"))) {
+          value = value.slice(1, -1);
+        }
+        
+        // Handle arrays (skills)
+        if (value.startsWith('[') && value.endsWith(']')) {
+          value = value.slice(1, -1).split(',').map(item => 
+            item.trim().replace(/['"]/g, '')
+          );
+        }
+        
+        data[key] = value;
+      }
+    });
+    
+    return { data, content: markdownContent };
+  };
+
+  useEffect(() => {
+    // Scroll to top when component mounts
+    window.scrollTo(0, 0);
+
+    const loadAllProjects = async () => {
+      const projectIds = ["recycling-app", "manghost-cafe", "threat-intelligence"];
+      
+      try {
+        const projectsData = await Promise.all(
+          projectIds.map(async (id) => {
+            try {
+              const content = await loadMarkdownFile(id);
+              const { data } = parseFrontmatter(content);
+              return {
+                id,
+                title: data.title,
+                description: data.description,
+                imageSrc: data.heroImage,
+                skills: data.skills || [],
+                date: data.date,
+                demo: data.demo || "",
+                source: data.source || "",
+                tags: data.skills || [] // For compatibility with existing Portfolio code
+              };
+            } catch (err) {
+              console.warn(`Failed to load project ${id}:`, err);
+              return null;
+            }
+          })
+        );
+        
+        setProjects(projectsData.filter(p => p !== null));
+        setLoading(false);
+      } catch (err) {
+        console.error("Error loading projects:", err);
+        setLoading(false);
+      }
+    };
+
+    loadAllProjects();
+  }, []);
 
   const experiencesData = historyData;
 
@@ -158,11 +262,17 @@ export const Portfolio = () => {
         {/* Projects Tab */}
         {activeTab === "projects" && (
           <div className={`${styles.projectsTab} ${styles.dark}`}>
-            <div className={styles.projectGrid}>
-              {enhancedProjects.map((project) => (
-                <ProjectCard key={project.id} project={project} />
-              ))}
-            </div>
+            {loading ? (
+              <div style={{ textAlign: 'center', padding: '40px', color: 'white' }}>
+                Loading projects...
+              </div>
+            ) : (
+              <div className={styles.projectGrid}>
+                {projects.map((project) => (
+                  <ProjectCard key={project.id} project={project} />
+                ))}
+              </div>
+            )}
           </div>
         )}
 

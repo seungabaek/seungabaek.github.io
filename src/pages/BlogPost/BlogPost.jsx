@@ -1,17 +1,208 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import styles from "./BlogPost.module.css";
 import { getImageUrl } from "../../utils";
-import projectsData from "../../data/projects.json";
 
 export const BlogPost = () => {
   const { postId } = useParams();
-  const project = projectsData.find(p => p.id === postId);
-  
-  // Get other projects for related posts
-  const relatedProjects = projectsData.filter(p => p.id !== postId);
+  const [project, setProject] = useState(null);
+  const [allProjects, setAllProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  if (!project) {
+  // Dynamic import approach for markdown files
+  const loadMarkdownFile = async (projectId) => {
+    try {
+      let markdownModule;
+      
+      // Dynamic import based on project ID
+      switch (projectId) {
+        case "recycling-app":
+          markdownModule = await import("/src/data/projects/livethrive-project.md?raw");
+          break;
+        case "manghost-cafe":
+          markdownModule = await import("/src/data/projects/manghost-project.md?raw");
+          break;
+        case "threat-intelligence":
+          markdownModule = await import("/src/data/projects/threat-intelligence.md?raw");
+          break;
+        default:
+          throw new Error("Project not found");
+      }
+      
+      return markdownModule.default;
+    } catch (error) {
+      console.error("Error loading markdown:", error);
+      throw error;
+    }
+  };
+
+  // Simple frontmatter parser
+  const parseFrontmatter = (content) => {
+    const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/;
+    const match = content.match(frontmatterRegex);
+    
+    if (!match) {
+      return { data: {}, content };
+    }
+    
+    const frontmatterText = match[1];
+    const markdownContent = match[2];
+    
+    // Simple YAML parser for frontmatter
+    const data = {};
+    frontmatterText.split('\n').forEach(line => {
+      const colonIndex = line.indexOf(':');
+      if (colonIndex > 0) {
+        const key = line.substring(0, colonIndex).trim();
+        let value = line.substring(colonIndex + 1).trim();
+        
+        // Remove quotes if present
+        if ((value.startsWith('"') && value.endsWith('"')) || 
+            (value.startsWith("'") && value.endsWith("'"))) {
+          value = value.slice(1, -1);
+        }
+        
+        // Handle arrays (skills)
+        if (value.startsWith('[') && value.endsWith(']')) {
+          value = value.slice(1, -1).split(',').map(item => 
+            item.trim().replace(/['"]/g, '')
+          );
+        }
+        
+        data[key] = value;
+      }
+    });
+    
+    return { data, content: markdownContent };
+  };
+
+  // Simple markdown renderer
+  const renderMarkdown = (content) => {
+    return content.split('\n').map((line, index) => {
+      const trimmed = line.trim();
+
+      // Horizontal rules (--- becomes a border line)
+      if (trimmed === '---') {
+        console.log('Found horizontal rule, creating HR element'); // Debug log
+        return <hr key={index} className={styles.contentHr} />;
+      }
+
+      // Headers
+      if (trimmed.startsWith('# ')) {
+        return <h1 key={index} className={styles.contentH1}>{trimmed.substring(2)}</h1>;
+      }
+      if (trimmed.startsWith('## ')) {
+        return <h2 key={index} className={styles.contentH2}>{trimmed.substring(3)}</h2>;
+      }
+      if (trimmed.startsWith('### ')) {
+        return <h3 key={index} className={styles.contentH3}>{trimmed.substring(4)}</h3>;
+      }
+      if (trimmed.startsWith('#### ')) {
+        return <h4 key={index} className={styles.contentH4}>{trimmed.substring(5)}</h4>;
+      }
+
+      // Lists
+      if (trimmed.startsWith('- ')) {
+        const listContent = trimmed.substring(2);
+        const processedContent = listContent.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        return <li key={index} className={styles.contentLi} dangerouslySetInnerHTML={{ __html: processedContent }} />;
+      }
+
+      // Skip empty lines (this reduces excessive spacing)
+      if (trimmed === '') {
+        return null;
+      }
+
+      // Regular paragraph with formatting
+      let processedLine = trimmed;
+      
+      // Bold text
+      processedLine = processedLine.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      
+      // Inline code
+      processedLine = processedLine.replace(/`(.*?)`/g, '<code class="inline-code">$1</code>');
+      
+      // Links
+      processedLine = processedLine.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="content-link" target="_blank" rel="noopener noreferrer">$1</a>');
+
+      return <p key={index} className={styles.contentP} dangerouslySetInnerHTML={{ __html: processedLine }} />;
+    }).filter(element => element !== null); // Remove null elements (empty lines)
+  };
+
+  useEffect(() => {
+    // Scroll to top when component mounts or postId changes
+    window.scrollTo(0, 0);
+
+    const loadProject = async () => {
+      try {
+        // Load markdown content using dynamic import
+        const markdownContent = await loadMarkdownFile(postId);
+        
+        // Parse frontmatter and content
+        const { data: frontmatter, content } = parseFrontmatter(markdownContent);
+        
+        // Create project object with frontmatter data
+        const projectData = {
+          id: postId,
+          title: frontmatter.title || `Project: ${postId}`,
+          description: frontmatter.description || "No description available",
+          imageSrc: frontmatter.heroImage,
+          skills: frontmatter.skills || [],
+          date: frontmatter.date || "",
+          demo: frontmatter.demo || "",
+          source: frontmatter.source || "",
+          content: content
+        };
+
+        setProject(projectData);
+        
+        // Load other projects for related posts
+        const otherProjectIds = ["recycling-app", "manghost-cafe", "threat-intelligence"].filter(id => id !== postId);
+        const otherProjects = await Promise.all(
+          otherProjectIds.map(async (id) => {
+            try {
+              const content = await loadMarkdownFile(id);
+              const { data } = parseFrontmatter(content);
+              return {
+                id,
+                title: data.title,
+                description: data.description,
+                imageSrc: data.heroImage,
+                date: data.date
+              };
+            } catch (err) {
+              console.warn(`Failed to load project ${id}:`, err);
+              return null;
+            }
+          })
+        );
+        
+        setAllProjects(otherProjects.filter(p => p !== null));
+        setLoading(false);
+      } catch (err) {
+        console.error("Error loading project:", err);
+        setError("Failed to load project: " + err.message);
+        setLoading(false);
+      }
+    };
+
+    loadProject();
+  }, [postId]);
+
+  if (loading) {
+    return (
+      <div className={styles.blogPost}>
+        <div className={styles.container}>
+          <div className={styles.loading}>
+            <h2>Loading project...</h2>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !project) {
     return (
       <div className={styles.blogPost}>
         <div className={styles.container}>
@@ -25,381 +216,6 @@ export const BlogPost = () => {
     );
   }
 
-  // Helper function to render content sections
-  const renderContent = (content) => {
-    switch (project.id) {
-      case "recycling-app":
-        return renderRecyclingAppContent(content);
-      case "manghost-cafe":
-        return renderManghostCafeContent(content);
-      case "threat-intelligence":
-        return renderThreatIntelligenceContent(content);
-      default:
-        return null;
-    }
-  };
-
-  // Live Thrive
-  const renderRecyclingAppContent = (content) => (
-    <>
-      <p>{content.overview}</p>
-      
-      {/* Team Section */}
-      {content.teamAndRoles && (
-        <>
-          <h2>Team & Contributions</h2>
-          <p>{content.teamAndRoles.description}</p>
-          <ul>
-            {content.teamAndRoles.members.map((member, index) => (
-              <li key={index}>{member}</li>
-            ))}
-          </ul>
-        </>
-      )}
-      
-      <h2>The Problem</h2>
-      <ul>
-        {content.problem.map((item, index) => (
-          <li key={index}>{item}</li>
-        ))}
-      </ul>
-      
-      {/* System Architecture */}
-      {content.systemArchitecture && (
-        <>
-          <h2>System Architecture</h2>
-          <p>{content.systemArchitecture.description}</p>
-          <ul>
-            {content.systemArchitecture.components.map((component, index) => (
-              <li key={index}>{component}</li>
-            ))}
-          </ul>
-        </>
-      )}
-      
-      <h2>Design Process</h2>
-      <p>{content.designProcess.description}</p>
-      <ul>
-        {content.designProcess.keyFeatures.map((feature, index) => (
-          <li key={index}>{feature}</li>
-        ))}
-      </ul>
-      
-      <h2>Technical Implementation</h2>
-      
-      <h3>{content.technicalImplementation.frontend.title}</h3>
-      <ul>
-        {content.technicalImplementation.frontend.details.map((detail, index) => (
-          <li key={index}>{detail}</li>
-        ))}
-      </ul>
-      
-      <h3>{content.technicalImplementation.api.title}</h3>
-      <ul>
-        {content.technicalImplementation.api.details.map((detail, index) => (
-          <li key={index}>{detail}</li>
-        ))}
-      </ul>
-      
-      <h3>{content.technicalImplementation.database.title}</h3>
-      <ul>
-        {content.technicalImplementation.database.details.map((detail, index) => (
-          <li key={index}>{detail}</li>
-        ))}
-      </ul>
-      
-      <h2>Key Features Implemented</h2>
-      {content.keyFeatures.map((feature, index) => (
-        <div key={index} className={styles.feature}>
-          <h4>{feature.name}</h4>
-          <p>{feature.description}</p>
-        </div>
-      ))}
-      
-      {/* UI/UX Highlights */}
-      {content.uiUxHighlights && (
-        <>
-          <h2>UI/UX Highlights</h2>
-          <ul>
-            {content.uiUxHighlights.map((highlight, index) => (
-              <li key={index}>{highlight}</li>
-            ))}
-          </ul>
-        </>
-      )}
-      
-      {/* Security Measures */}
-      {content.securityMeasures && (
-        <>
-          <h2>Security Measures</h2>
-          <ul>
-            {content.securityMeasures.map((measure, index) => (
-              <li key={index}>{measure}</li>
-            ))}
-          </ul>
-        </>
-      )}
-      
-      {/* Development Challenges */}
-      {content.challenges && (
-        <>
-          <h2>Development Challenges</h2>
-          <ul>
-            {content.challenges.map((challenge, index) => (
-              <li key={index}>{challenge}</li>
-            ))}
-          </ul>
-        </>
-      )}
-      
-      <h2>Future Enhancements</h2>
-      <ul>
-        {content.futureEnhancements.map((enhancement, index) => (
-          <li key={index}>{enhancement}</li>
-        ))}
-      </ul>
-      
-      {/* Impact - now a string instead of array */}
-      {content.impact && (
-        <>
-          <h2>Impact</h2>
-          <p>{content.impact}</p>
-        </>
-      )}
-      
-      <h2>Lessons Learned</h2>
-      <p>{content.lessonsLearned}</p>
-    </>
-  );
-  // Unity Manghost Cafe
-  const renderManghostCafeContent = (content) => (
-    <>
-      <p>{content.overview}</p>
-      
-      <h2>Game Concept</h2>
-      <p>{content.gameDesign.concept}</p>
-      <p>{content.gameDesign.coreGameplay}</p>
-      
-      <h2>Technical Architecture</h2>
-      
-      <h3>State Machine Implementation</h3>
-      <p>{content.technicalImplementation.stateMachine.description}:</p>
-      <ul>
-        {content.technicalImplementation.stateMachine.states.map((state, index) => (
-          <li key={index}>{state}</li>
-        ))}
-      </ul>
-      
-      <h3>AI Customer Behavior</h3>
-      <p>{content.technicalImplementation.aiCustomers.description}:</p>
-      <ul>
-        {content.technicalImplementation.aiCustomers.features.map((feature, index) => (
-          <li key={index}>{feature}</li>
-        ))}
-      </ul>
-      
-      
-      <h2>Game Mechanics</h2>
-      <h3>Order System</h3>
-      <ul>
-        {content.gameMechanics.orderSystem.map((mechanic, index) => (
-          <li key={index}>{mechanic}</li>
-        ))}
-      </ul>
-      
-      <h3>Interactive UI Elements</h3>
-      <ul>
-        {content.gameMechanics.uiElements.map((element, index) => (
-          <li key={index}>{element}</li>
-        ))}
-      </ul>
-      
-      <h2>Performance Optimization</h2>
-      <ul>
-        {content.optimization.map((opt, index) => (
-          <li key={index}>{opt}</li>
-        ))}
-      </ul>
-      
-      <h2>Art Style and Audio</h2>
-      <h3>Visual Style</h3>
-      <ul>
-        {content.artAndAudio.visualStyle.map((style, index) => (
-          <li key={index}>{style}</li>
-        ))}
-      </ul>
-      <h3>Audio Design</h3>
-      <ul>
-        {content.artAndAudio.audio.map((audio, index) => (
-          <li key={index}>{audio}</li>
-        ))}
-      </ul>
-      
-      <h2>Level Design</h2>
-      {content.levels.map((level, index) => (
-        <div key={index} className={styles.level}>
-          <h4>{level.name}</h4>
-          <p>{level.description}</p>
-        </div>
-      ))}
-      
-      <h2>Player Progression</h2>
-      <ul>
-        {content.progression.map((item, index) => (
-          <li key={index}>{item}</li>
-        ))}
-      </ul>
-      
-      <h2>Development Challenges</h2>
-      <ul>
-        {content.challenges.map((challenge, index) => (
-          <li key={index}>{challenge}</li>
-        ))}
-      </ul>
-      
-      <h2>Future Updates</h2>
-      <ul>
-        {content.futureUpdates.map((update, index) => (
-          <li key={index}>{update}</li>
-        ))}
-      </ul>
-    </>
-  );
-
-  // Render function for Threat Intelligence
-  const renderThreatIntelligenceContent = (content) => (
-    <>
-      <p>{content.overview}</p>
-      
-      <h2>The Problem with Centralized Systems</h2>
-      <ul>
-        {content.problemStatement.centralizedIssues.map((issue, index) => (
-          <li key={index}>{issue}</li>
-        ))}
-      </ul>
-      
-      <h2>Improving Upon IRIS</h2>
-      <p>This project builds upon the existing IRIS framework with key improvements:</p>
-      <ul>
-        {content.problemStatement.irisImprovements.map((improvement, index) => (
-          <li key={index}>{improvement}</li>
-        ))}
-      </ul>
-      
-      <h2>System Architecture</h2>
-      
-      <h3>Core Components</h3>
-      <p>{content.architecture.coreComponents.description}:</p>
-      <ul>
-        {content.architecture.coreComponents.components.map((component, index) => (
-          <li key={index}>{component}</li>
-        ))}
-      </ul>
-      
-      <h3>Peer-to-Peer Network Layer</h3>
-      <p>{content.architecture.networkLayer.description}:</p>
-      <ul>
-        {content.architecture.networkLayer.features.map((feature, index) => (
-          <li key={index}>{feature}</li>
-        ))}
-      </ul>
-      
-      <h2>Technical Details</h2>
-      
-      <h3>Metadata Chunking Algorithm</h3>
-      <p>{content.technicalDetails.chunkingAlgorithm.description}:</p>
-      <ul>
-        {content.technicalDetails.chunkingAlgorithm.process.map((step, index) => (
-          <li key={index}>{step}</li>
-        ))}
-      </ul>
-      
-      <h3>Custom JSON-RPC Protocol</h3>
-      <p>{content.technicalDetails.protocol.description}:</p>
-      <ul>
-        {content.technicalDetails.protocol.messages.map((message, index) => (
-          <li key={index}>{message}</li>
-        ))}
-      </ul>
-      
-      <h3>Intelligent Chunk Distribution</h3>
-      <h4>Rarity-First Distribution</h4>
-      <ul>
-        {content.technicalDetails.distribution.rarityFirst.map((item, index) => (
-          <li key={index}>{item}</li>
-        ))}
-      </ul>
-      
-      <h4>Adaptive Replication</h4>
-      <ul>
-        {content.technicalDetails.distribution.adaptiveReplication.map((item, index) => (
-          <li key={index}>{item}</li>
-        ))}
-      </ul>
-      
-      <h2>Security Measures</h2>
-      
-      <h3>Data Integrity</h3>
-      <ul>
-        {content.security.dataIntegrity.map((measure, index) => (
-          <li key={index}>{measure}</li>
-        ))}
-      </ul>
-      
-      <h3>Privacy Protection</h3>
-      <ul>
-        {content.security.privacy.map((protection, index) => (
-          <li key={index}>{protection}</li>
-        ))}
-      </ul>
-      
-      <h2>Docker Deployment</h2>
-      <p>{content.deployment.docker.description}</p>
-      <ul>
-        {content.deployment.docker.benefits.map((benefit, index) => (
-          <li key={index}>{benefit}</li>
-        ))}
-      </ul>
-      
-      <h2>Performance Optimization</h2>
-      
-      <h3>Caching Strategy</h3>
-      <ul>
-        {content.performance.caching.map((strategy, index) => (
-          <li key={index}>{strategy}</li>
-        ))}
-      </ul>
-      
-      <h3>Bandwidth Management</h3>
-      <ul>
-        {content.performance.bandwidth.map((item, index) => (
-          <li key={index}>{item}</li>
-        ))}
-      </ul>
-      
-      <h3>Performance Metrics</h3>
-      <ul>
-        {content.performance.metrics.map((metric, index) => (
-          <li key={index}>{metric}</li>
-        ))}
-      </ul>
-      
-      <h2>Real-World Applications</h2>
-      <ul>
-        {content.applications.map((app, index) => (
-          <li key={index}>{app}</li>
-        ))}
-      </ul>
-      
-      <h2>Future Enhancements</h2>
-      <ul>
-        {content.futureWork.map((work, index) => (
-          <li key={index}>{work}</li>
-        ))}
-      </ul>
-    </>
-  );
-
   return (
     <div className={styles.blogPost}>
       <div className={styles.container}>
@@ -409,22 +225,28 @@ export const BlogPost = () => {
           <header className={styles.header}>
             <h1 className={styles.title}>{project.title}</h1>
             <p className={styles.description}>{project.description}</p>
-            <div className={styles.metadata}>
-              <time className={styles.date}>{project.date}</time>
-              <div className={styles.tags}>
-                {project.skills.map((skill, index) => (
-                  <span key={index} className={styles.tag}>{skill}</span>
-                ))}
+            {project.skills && project.skills.length > 0 && (
+              <div className={styles.metadata}>
+                <time className={styles.date}>{project.date}</time>
+                <div className={styles.tags}>
+                  {project.skills.map((skill, index) => (
+                    <span key={index} className={styles.tag}>{skill}</span>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
           </header>
           
-          <div className={styles.featuredImage}>
-            <img src={getImageUrl(project.imageSrc)} alt={project.title} />
-          </div>
+          {project.imageSrc && (
+            <div className={styles.featuredImage}>
+              <img src={getImageUrl(project.imageSrc)} alt={project.title} />
+            </div>
+          )}
           
           <div className={styles.content}>
-            {renderContent(project.content)}
+            <div className={styles.markdownContent}>
+              {renderMarkdown(project.content)}
+            </div>
           </div>
 
           {/* Project Links */}
@@ -461,11 +283,11 @@ export const BlogPost = () => {
           </div>
 
           {/* Other Projects */}
-          {relatedProjects.length > 0 && (
+          {allProjects.length > 0 && (
             <div className={styles.readMoreSection}>
               <h2>Other Projects</h2>
               <div className={styles.relatedPosts}>
-                {relatedProjects.map((relatedProject) => (
+                {allProjects.map((relatedProject) => (
                   <Link 
                     key={relatedProject.id}
                     to={`/blog/${relatedProject.id}`}

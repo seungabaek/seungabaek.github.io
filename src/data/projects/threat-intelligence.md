@@ -4,7 +4,7 @@ description: 'Decentralized metadata-sharing platform for cyber threat intellige
 pubDate: 'August 30 2024'
 heroImage: '/projects/threat-intelligence.png'
 skills: ['Go', 'libp2p', 'Docker', 'JSON-RPC']
-date: 'August 2024'
+date: 'February 2025 - April 2025'
 demo: ''
 source: 'https://github.com/seungabaek/threat-intelligence'
 ---
