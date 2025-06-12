@@ -1,43 +1,44 @@
+// Create this file: src/pages/ExperiencePost/ExperiencePost.jsx
+
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import styles from "./BlogPost.module.css";
-import { projectImages } from "/src/data/projects/images.js";
+import styles from "./ExperiencePost.module.css";
+import { experienceImages } from "/src/data/experiences/images.js";
 
-export const BlogPost = () => {
-  const { postId } = useParams();
-  const [project, setProject] = useState(null);
-  const [allProjects, setAllProjects] = useState([]);
+export const ExperiencePost = () => {
+  const { experienceId } = useParams();
+  const [experience, setExperience] = useState(null);
+  const [allExperiences, setAllExperiences] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Dynamic import approach for markdown files
-  const loadMarkdownFile = async (projectId) => {
+  // Dynamic import approach for experience markdown files
+  const loadExperienceFile = async (experienceId) => {
     try {
       let markdownModule;
       
-      // Dynamic import based on project ID
-      switch (projectId) {
-        case "recycling-app":
-          markdownModule = await import("/src/data/projects/livethrive-project.md?raw");
+      switch (experienceId) {
+        case "1332":
+          markdownModule = await import("/src/data/experiences/1332.md?raw");
           break;
-        case "manghost-cafe":
-          markdownModule = await import("/src/data/projects/manghost-project.md?raw");
+        case "ge-intern":
+          markdownModule = await import("/src/data/experiences/ge-intern.md?raw");
           break;
-        case "threat-intelligence":
-          markdownModule = await import("/src/data/projects/threat-intelligence.md?raw");
+        case "ups-intern":
+          markdownModule = await import("/src/data/experiences/ups-intern.md?raw");
           break;
         default:
-          throw new Error("Project not found");
+          throw new Error("Experience not found");
       }
       
       return markdownModule.default;
     } catch (error) {
-      console.error("Error loading markdown:", error);
+      console.error("Error loading experience markdown:", error);
       throw error;
     }
   };
 
-  // Simple frontmatter parser
+  // Simple frontmatter parser (same as BlogPost)
   const parseFrontmatter = (content) => {
     const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/;
     const match = content.match(frontmatterRegex);
@@ -63,7 +64,7 @@ export const BlogPost = () => {
           value = value.slice(1, -1);
         }
         
-        // Handle arrays (skills)
+        // Handle arrays (skills and experiences)
         if (value.startsWith('[') && value.endsWith(']')) {
           value = value.slice(1, -1).split(',').map(item => 
             item.trim().replace(/['"]/g, '')
@@ -77,14 +78,13 @@ export const BlogPost = () => {
     return { data, content: markdownContent };
   };
 
-  // Simple markdown renderer
+  // Simple markdown renderer (same as BlogPost)
   const renderMarkdown = (content) => {
     return content.split('\n').map((line, index) => {
       const trimmed = line.trim();
 
-      // Horizontal rules (--- becomes a border line)
+      // Horizontal rules
       if (trimmed === '---') {
-        console.log('Found horizontal rule, creating HR element'); // Debug log
         return <hr key={index} className={styles.contentHr} />;
       }
 
@@ -109,7 +109,7 @@ export const BlogPost = () => {
         return <li key={index} className={styles.contentLi} dangerouslySetInnerHTML={{ __html: processedContent }} />;
       }
 
-      // Skip empty lines (this reduces excessive spacing)
+      // Skip empty lines
       if (trimmed === '') {
         return null;
       }
@@ -127,93 +127,95 @@ export const BlogPost = () => {
       processedLine = processedLine.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="content-link" target="_blank" rel="noopener noreferrer">$1</a>');
 
       return <p key={index} className={styles.contentP} dangerouslySetInnerHTML={{ __html: processedLine }} />;
-    }).filter(element => element !== null); // Remove null elements (empty lines)
+    }).filter(element => element !== null);
   };
 
   useEffect(() => {
-    // Scroll to top when component mounts or postId changes
     window.scrollTo(0, 0);
 
-    const loadProject = async () => {
+    const loadExperience = async () => {
       try {
-        // Load markdown content using dynamic import
-        const markdownContent = await loadMarkdownFile(postId);
+        // Load experience content
+        const experienceContent = await loadExperienceFile(experienceId);
         
         // Parse frontmatter and content
-        const { data: frontmatter, content } = parseFrontmatter(markdownContent);
+        const { data: frontmatter, content } = parseFrontmatter(experienceContent);
         
-        // Get the hero image from the imported images
-        const heroImageSrc = projectImages[frontmatter.heroImage] || null;
+        // Get the hero image from experienceImages
+        const heroImageSrc = experienceImages[frontmatter.heroImage] || null;
         
-        // Create project object with frontmatter data
-        const projectData = {
-          id: postId,
-          title: frontmatter.title || `Project: ${postId}`,
-          description: frontmatter.description || "No description available",
-          imageSrc: heroImageSrc, // Use the loaded image instead of the path
+        // Create experience object with frontmatter data
+        const experienceData = {
+          id: experienceId,
+          title: frontmatter.title || `Experience: ${experienceId}`,
+          role: frontmatter.role || "",
+          organisation: frontmatter.organisation || "",
+          startDate: frontmatter.startDate || "",
+          endDate: frontmatter.endDate || "",
+          location: frontmatter.location || "",
+          imageSrc: heroImageSrc,
           skills: frontmatter.skills || [],
-          date: frontmatter.date,
-          demo: frontmatter.demo || "",
-          source: frontmatter.source || "",
           content: content
         };
 
-        setProject(projectData);
+        setExperience(experienceData);
         
-        // Load other projects for related posts
-        const otherProjectIds = ["recycling-app", "manghost-cafe", "threat-intelligence"].filter(id => id !== postId);
-        const otherProjects = await Promise.all(
-          otherProjectIds.map(async (id) => {
+        // Load other experiences for related posts
+        const otherExperienceIds = ["1332", "ge-intern", "ups-intern"].filter(id => id !== experienceId);
+        const otherExperiences = await Promise.all(
+          otherExperienceIds.map(async (id) => {
             try {
-              const content = await loadMarkdownFile(id);
+              const content = await loadExperienceFile(id);
               const { data } = parseFrontmatter(content);
-              const relatedImageSrc = projectImages[data.heroImage] || null;
+              const relatedImageSrc = experienceImages[data.heroImage] || null;
               return {
                 id,
                 title: data.title,
-                description: data.description,
-                imageSrc: relatedImageSrc, // Use the loaded image instead of the path
-                date: data.date
+                role: data.role,
+                organisation: data.organisation,
+                imageSrc: relatedImageSrc,
+                startDate: data.startDate,
+                endDate: data.endDate
               };
             } catch (err) {
-              console.warn(`Failed to load project ${id}:`, err);
+              console.warn(`Failed to load experience ${id}:`, err);
               return null;
             }
           })
         );
         
-        setAllProjects(otherProjects.filter(p => p !== null));
+        setAllExperiences(otherExperiences.filter(e => e !== null));
         setLoading(false);
       } catch (err) {
-        console.error("Error loading project:", err);
-        setError("Failed to load project: " + err.message);
+        console.error("Error loading experience:", err);
+        setError("Failed to load experience: " + err.message);
         setLoading(false);
       }
     };
 
-    loadProject();
-  }, [postId]);
+    loadExperience();
+  }, [experienceId]);
 
   if (loading) {
     return (
-      <div className={styles.blogPost}>
+      <div className={styles.experiencePost}>
         <div className={styles.container}>
           <div className={styles.loading}>
-            <h2>Loading project...</h2>
+            <h2>Loading experience...</h2>
           </div>
         </div>
       </div>
     );
   }
 
-  if (error || !project) {
+  if (error || !experience) {
     return (
-      <div className={styles.blogPost}>
+      <div className={styles.experiencePost}>
         <div className={styles.container}>
           <div className={styles.notFound}>
-            <h1>Project Not Found</h1>
-            <p>The project you're looking for doesn't exist.</p>
-            <Link to="/blog" className={styles.backLink}>← Back to Projects</Link>
+            <h1>Experience Not Found</h1>
+            <p>The experience you're looking for doesn't exist.</p>
+            <Link to="/blog" className={styles.backLink}>← Back to Blog</Link>
           </div>
         </div>
       </div>
@@ -221,61 +223,48 @@ export const BlogPost = () => {
   }
 
   return (
-    <div className={styles.blogPost}>
+    <div className={styles.experiencePost}>
       <div className={styles.container}>
-        <Link to="/blog" className={styles.backLink}>← Back to Projects</Link>
+        <Link to="/blog" className={styles.backLink}>← Back to Blog</Link>
         
         <article className={styles.article}>
           <header className={styles.header}>
-            <h1 className={styles.title}>{project.title}</h1>
-            <p className={styles.description}>{project.description}</p>
-            {project.skills && project.skills.length > 0 && (
-              <div className={styles.metadata}>
-                <time className={styles.date}>{project.date}</time>
-                <div className={styles.tags}>
-                  {project.skills.map((skill, index) => (
-                    <span key={index} className={styles.tag}>{skill}</span>
-                  ))}
-                </div>
+            <h1 className={styles.title}>{experience.title}</h1>
+            <div className={styles.experienceDetails}>
+              <h2 className={styles.role}>{experience.role}</h2>
+              <h3 className={styles.organisation}>{experience.organisation}</h3>
+              <p className={styles.period}>
+                {experience.startDate} - {experience.endDate}
+              </p>
+              {experience.location && (
+                <p className={styles.location}>📍 {experience.location}</p>
+              )}
+            </div>
+            {experience.skills && experience.skills.length > 0 && (
+              <div className={styles.skills}>
+                {experience.skills.map((skill, index) => (
+                  <span key={index} className={styles.tag}>{skill}</span>
+                ))}
               </div>
             )}
           </header>
           
-          {project.imageSrc && (
+          {experience.imageSrc && (
             <div className={styles.featuredImage}>
-              <img src={project.imageSrc} alt={project.title} />
+              <img src={experience.imageSrc} alt={experience.organisation} />
             </div>
           )}
           
           <div className={styles.content}>
             <div className={styles.markdownContent}>
-              {renderMarkdown(project.content)}
-            </div>
-          </div>
-
-          {/* Project Links */}
-          <div className={styles.projectLinks}>
-            <h3>Project Links</h3>
-            <div className={styles.linkButtons}>
-              {project.source && (
-                <a href={project.source} target="_blank" rel="noopener noreferrer" className={styles.linkButton}>
-                  View on GitHub
-                </a>
-              )}
-              {project.demo && project.demo !== "" ? (
-                <a href={project.demo} target="_blank" rel="noopener noreferrer" className={styles.linkButton}>
-                  Live Demo
-                </a>
-              ) : (
-                <span className={styles.linkButtonDisabled}>Demo Coming Soon</span>
-              )}
+              {renderMarkdown(experience.content)}
             </div>
           </div>
 
           {/* Contact Box */}
           <div className={styles.contactBox}>
             <p>
-              Interested in this project? I'd love to discuss it!{' '}
+              Interested in learning more about my experience?{' '}
               <Link to="/resume" className={styles.contactLink}>
                 View My Resume
               </Link>
@@ -286,26 +275,29 @@ export const BlogPost = () => {
             </p>
           </div>
 
-          {/* Other Projects */}
-          {allProjects.length > 0 && (
+          {/* Other Experiences */}
+          {allExperiences.length > 0 && (
             <div className={styles.readMoreSection}>
-              <h2>Other Projects</h2>
+              <h2>Other Experiences</h2>
               <div className={styles.relatedPosts}>
-                {allProjects.map((relatedProject) => (
+                {allExperiences.map((relatedExperience) => (
                   <Link 
-                    key={relatedProject.id}
-                    to={`/blog/${relatedProject.id}`}
+                    key={relatedExperience.id}
+                    to={`/experience/${relatedExperience.id}`}
                     className={styles.relatedPost}
                   >
                     <div className={styles.relatedImage}>
                       <img 
-                        src={relatedProject.imageSrc} 
-                        alt={relatedProject.title}
+                        src={relatedExperience.imageSrc} 
+                        alt={relatedExperience.organisation}
                       />
                     </div>
                     <div className={styles.relatedContent}>
-                      <h3>{relatedProject.title}</h3>
-                      <p>{relatedProject.description}</p>
+                      <h3>{relatedExperience.role}</h3>
+                      <p>{relatedExperience.organisation}</p>
+                      <p className={styles.relatedPeriod}>
+                        {relatedExperience.startDate} - {relatedExperience.endDate}
+                      </p>
                     </div>
                   </Link>
                 ))}

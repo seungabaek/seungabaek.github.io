@@ -2,7 +2,7 @@
 title: 'Manghost Café'
 description: '3D single player restaurant game with AI pathfinding and real-time gameplay mechanics'
 pubDate: 'May 20 2025'
-heroImage: '/projects/manghost-cafe.png'
+heroImage: 'manghost-cafe.png'
 skills: ['Unity', 'C#', 'NavMesh', 'Git']
 date: 'January 2025 - May 2025'
 demo: ''

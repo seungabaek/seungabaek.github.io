@@ -46,8 +46,22 @@
   transform: translateY(-2px);
 }
 
-.imageTab.active {
-  filter: brightness(1.2);
+/* Active tab states - match the body colors exactly */
+.imageTab:first-child.active {
+  background: #2c2c2ccb !important;
+  filter: none;
+  box-shadow: inset 0 -3px 0 rgba(0,0,0,0.3);
+}
+
+.imageTab:nth-child(2).active {
+  background: #c8a88262 !important;
+  filter: none;
+  box-shadow: inset 0 -3px 0 rgba(0,0,0,0.3);
+}
+
+.imageTab:last-child.active {
+  background: #f4d03f89 !important;
+  filter: none;
   box-shadow: inset 0 -3px 0 rgba(0,0,0,0.3);
 }
 
@@ -165,13 +179,13 @@
 }
 
 .tag {
-  background: rgba(244, 208, 63, 0.2);
-  color: #f4d03f;
+  background: rgba(244, 208, 63, 0.468);
+  color: #ffffff;
   padding: 4px 8px;
   border-radius: 12px;
   font-size: 12px;
   font-weight: 500;
-  border: 1px solid rgba(244, 208, 63, 0.3);
+  border: 1px solid rgb(191, 163, 50);
 }
 
 .projectLinks {
@@ -181,7 +195,7 @@
 }
 
 .linkIndicator {
-  background: rgba(244, 208, 63, 0.3);
+  background: rgba(244, 208, 63, 0.468);
   color: #f4d03f;
   padding: 3px 8px;
   border-radius: 10px;
@@ -271,6 +285,12 @@
   font-size: 14px;
   line-height: 1.5;
   color: #444;
+}
+
+.experienceTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 /* ABOUT ME TAB */

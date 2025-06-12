@@ -64,6 +64,7 @@
   border-radius: 8px;
   overflow: hidden;
   background: #f0f0f0;
+  position: relative;
 }
 
 .blogImage img {
@@ -75,6 +76,33 @@
 
 .blogPost:hover .blogImage img {
   transform: scale(1.05);
+}
+
+.imageOverlay {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 1;
+}
+
+.categoryTag {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.projectTag {
+  background: rgba(58, 121, 1, 0.95);
+  color: white;
+}
+
+.experienceTag {
+  background: rgba(200, 168, 130, 0.95);
+  color: white;
 }
 
 .blogContent {
@@ -153,6 +181,16 @@
   .blogImage {
     width: 100%;
     height: 200px;
+  }
+  
+  .imageOverlay {
+    top: 12px;
+    left: 12px;
+  }
+  
+  .categoryTag {
+    font-size: 0.8rem;
+    padding: 6px 10px;
   }
   
   .blogTitle {
