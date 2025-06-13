@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import styles from "./Blog.module.css";
 import { projectImages } from "/src/data/projects/images.js";
 import { experienceImages } from "/src/data/experiences/images.js";
+import { Contact } from "../../components/Contact/Contact";
+
 
 export const Blog = () => {
   const navigate = useNavigate();
@@ -214,6 +216,7 @@ export const Blog = () => {
   }
 
   return (
+    <div>
     <div className={styles.blog}>
       <div className={styles.blogHeader}>
         <h1>Blogs and Vlogs</h1>
@@ -260,6 +263,9 @@ export const Blog = () => {
           ))}
         </div>
       </div>
+      
+    </div>
+    <Contact />
     </div>
   );
 };

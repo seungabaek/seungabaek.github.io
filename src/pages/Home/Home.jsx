@@ -43,9 +43,10 @@ export const Home = () => {
             username="seungabaek" 
             colorScheme="light"
             theme={{
-              light: ['#ebedf0', '#fff3cd', '#ffeb3b', '#9ccc65', 'rgba(57, 121, 1, 0.597)'],
-              dark: ['#161b22', '#fff3cd', '#ffeb3b', '#9ccc65', 'rgba(57, 121, 1, 0.597)']
+              light: ['#ebedf0', '#fff176', '#ffeb3b', '#9ccc65', 'rgba(57, 121, 1, 0.597)'],
+              dark: ['#161b22', '#fff176', '#ffeb3b', '#9ccc65', 'rgba(57, 121, 1, 0.597)']
             }}
+            
           />
         </div>
       </section>

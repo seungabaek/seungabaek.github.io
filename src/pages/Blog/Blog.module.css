@@ -5,6 +5,7 @@
   min-height: 100vh;
   background-color: var(--color-bg);
   padding-top: 100px;
+  padding-bottom: 80px;
 }
 
 .blogHeader {
@@ -163,6 +164,7 @@
 @media (max-width: 768px) {
   .blog {
     padding-top: 80px;
+    padding-bottom: 60px; 
   }
   
   .blogHeader h1 {
@@ -209,6 +211,10 @@
 }
 
 @media (max-width: 480px) {
+  .blog {
+    padding-bottom: 40px; /* Smaller bottom spacing for very small screens */
+  }
+  
   .blogContainer {
     padding: 0 15px;
   }
