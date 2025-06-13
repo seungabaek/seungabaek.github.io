@@ -4,6 +4,8 @@ import { Portfolio } from "../../components/Portfolio/Portfolio";
 import { Contact } from "../../components/Contact/Contact";
 import PixelIntro from "../../components/PixelIntro/PixelIntro";
 import styles from "./Home.module.css";
+import GitHubCalendar from 'react-github-calendar';
+
 
 export const Home = () => {
   const [showIntro, setShowIntro] = useState(true);
@@ -32,6 +34,22 @@ export const Home = () => {
       )}
       <Hero />
       <Portfolio />
+      
+      {/* GitHub Calendar Section */}
+      <section className={styles.githubCalendarSection}>
+        <h2 className={styles.githubCalendarTitle}>My Git!</h2>
+        <div className={styles.githubCalendarContainer}>
+          <GitHubCalendar 
+            username="seungabaek" 
+            colorScheme="light"
+            theme={{
+              light: ['#ebedf0', '#fff3cd', '#ffeb3b', '#9ccc65', 'rgba(57, 121, 1, 0.597)'],
+              dark: ['#161b22', '#fff3cd', '#ffeb3b', '#9ccc65', 'rgba(57, 121, 1, 0.597)']
+            }}
+          />
+        </div>
+      </section>
+      
       <Contact />
     </div>
   );

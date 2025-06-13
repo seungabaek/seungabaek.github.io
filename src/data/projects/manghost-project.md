@@ -71,15 +71,16 @@ The game features sophisticated AI customers that operate on state machines:
 ### Team Coordination
 Working with a five-person team required careful coordination of assets and code:
 
-**Art & Environment (Jason Katz)**
-- Multi-story café structure with walls and stairs
-- Interactive furniture: tables, cooking equipment, trash cans
-- Mango ingredient prefabs (capsule and box variants)
-
 **UI & Customer Systems (Seung-a Baek)**
 - Customer AI prefab development
 - Complete UI design and scene materials
-- Customer spawning and queue management systems
+- Customer state machine, spawning, and queue management systems
+- All background music/interaction sounds integration
+
+**Environment & Debugging (Jason Katz)**
+- Multi-story café structure with walls and stairs
+- Interactive furniture: tables, cooking equipment, trash cans
+- Mango ingredient prefabs (capsule and box variants)
 
 **Interaction Systems (Jiyoon Lee)**
 - Player role mechanics (Chef and Waiter functionality)
@@ -90,7 +91,6 @@ Working with a five-person team required careful coordination of assets and code
 - Win/lose screen implementation
 - Customer order management
 - UI text and labeling systems
-- Background music integration
 
 **Core Systems (Deniz Timurturkan)**
 - Initial scene setup and main menu

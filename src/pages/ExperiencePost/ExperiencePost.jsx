@@ -64,7 +64,7 @@ export const ExperiencePost = () => {
           value = value.slice(1, -1);
         }
         
-        // Handle arrays (skills and experiences)
+        // Handle arrays (skills and experiences and additionalImages)
         if (value.startsWith('[') && value.endsWith(']')) {
           value = value.slice(1, -1).split(',').map(item => 
             item.trim().replace(/['"]/g, '')
@@ -144,6 +144,17 @@ export const ExperiencePost = () => {
         // Get the hero image from experienceImages
         const heroImageSrc = experienceImages[frontmatter.heroImage] || null;
         
+        // Handle multiple additional images
+        const additionalImagesSrc = [];
+        if (frontmatter.additionalImages && Array.isArray(frontmatter.additionalImages)) {
+          frontmatter.additionalImages.forEach(imageKey => {
+            const imageSrc = experienceImages[imageKey];
+            if (imageSrc) {
+              additionalImagesSrc.push(imageSrc);
+            }
+          });
+        }
+        
         // Create experience object with frontmatter data
         const experienceData = {
           id: experienceId,
@@ -154,6 +165,7 @@ export const ExperiencePost = () => {
           endDate: frontmatter.endDate || "",
           location: frontmatter.location || "",
           imageSrc: heroImageSrc,
+          additionalImages: additionalImagesSrc,
           skills: frontmatter.skills || [],
           content: content
         };
@@ -257,7 +269,42 @@ export const ExperiencePost = () => {
           
           <div className={styles.content}>
             <div className={styles.markdownContent}>
-              {renderMarkdown(experience.content)}
+              {(() => {
+                const lines = experience.content.split('\n');
+                const splitIndex = lines.findIndex(line => line.includes('My Final Semester'));
+                
+                if (splitIndex !== -1 && experience.additionalImages && experience.additionalImages.length > 0) {
+                  const beforeImage = lines.slice(0, splitIndex).join('\n');
+                  const afterImage = lines.slice(splitIndex).join('\n');
+                  
+                  return (
+                    <>
+                      {renderMarkdown(beforeImage)}
+                      <div style={{ 
+                        margin: '40px auto',
+                        display: 'flex',
+                        gap: '20px',
+                        justifyContent: 'center',
+                        flexWrap: 'wrap'
+                      }}>
+                        {experience.additionalImages.map((imageSrc, index) => (
+                          <div key={index} className={styles.featuredImage} style={{ 
+                            margin: '0',
+                            flex: '1',
+                            maxWidth: '45%',
+                            minWidth: '300px'
+                          }}>
+                            <img src={imageSrc} alt={`CS 1332 TA Team ${index + 1}`} />
+                          </div>
+                        ))}
+                      </div>
+                      {renderMarkdown(afterImage)}
+                    </>
+                  );
+                } else {
+                  return renderMarkdown(experience.content);
+                }
+              })()}
             </div>
           </div>
 
