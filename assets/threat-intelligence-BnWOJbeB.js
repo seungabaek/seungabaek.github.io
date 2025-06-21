@@ -3,6 +3,7 @@ title: 'Iris: Global P2P Threat Intelligence Network'
 description: 'Decentralized peer-to-peer system for secure threat intelligence sharing with partial file transfer capabilities'
 pubDate: 'April 30 2025'
 heroImage: 'threat1.png'
+additionalImages: ['fileshare.png']
 skills: ['Go', 'libp2p', 'Redis', 'Docker', 'P2P Networks', 'Cryptography']
 date: 'February 2025 - April 2025'
 demo: ''
