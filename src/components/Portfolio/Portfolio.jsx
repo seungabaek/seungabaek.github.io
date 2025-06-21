@@ -130,13 +130,34 @@ export const Portfolio = () => {
               const projectImageSrc = data.heroImage ? 
                 (projectImages[data.heroImage] || null) : null;
               
+              // Handle multiple hero images (use first one for thumbnail)
+              let thumbnailImageSrc = projectImageSrc;
+              if (data.heroImages && Array.isArray(data.heroImages) && data.heroImages.length > 0) {
+                const firstHeroImage = projectImages[data.heroImages[0]];
+                if (firstHeroImage) {
+                  thumbnailImageSrc = firstHeroImage;
+                }
+              }
+              
+              // Handle multiple additional images for projects
+              const additionalImagesSrc = [];
+              if (data.additionalImages && Array.isArray(data.additionalImages)) {
+                data.additionalImages.forEach(imageKey => {
+                  const imageSrc = projectImages[imageKey];
+                  if (imageSrc) {
+                    additionalImagesSrc.push(imageSrc);
+                  }
+                });
+              }
+              
               console.log(`✅ Loaded project ${id}:`, data.title);
               
               return {
                 id,
                 title: data.title || "Untitled Project",
                 description: data.description || "No description available",
-                imageSrc: projectImageSrc,
+                imageSrc: thumbnailImageSrc,
+                additionalImages: additionalImagesSrc,
                 skills: Array.isArray(data.skills) ? data.skills : [],
                 date: data.date || "",
                 demo: data.demo || "",
@@ -212,6 +233,10 @@ export const Portfolio = () => {
   }, []);
 
   const aboutMeData = [
+    {
+      title: "👨‍🏫 Teaching Assistant",
+      content: "Fourth-semester TA for CS 1332 (Data Structures & Algorithms). I lead recitations for 20+ students and hold weekly office hours, helping a class size of 1000+ students master Java-based algorithms."
+    },
     {
       title: "🌎 Sustainability Advocate",
       content: "International Science Fair Finalist for sustainable technology research. Member of Students Organizing Sustainability at GT, passionate about using tech for environmental impact."
@@ -442,7 +467,7 @@ export const Portfolio = () => {
                     <ExperienceItem key={experience.id || index} experience={experience} />
                   ))
                 ) : (
-                  <div style={{ textAlign: 'center', padding: '20px', color: '#333' }}>
+                  <div style={{ textAlign: 'center', padding: '40px', color: '#333' }}>
                     No experiences found
                   </div>
                 )}

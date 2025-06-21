@@ -11,12 +11,12 @@ export const BlogPost = () => {
   const [error, setError] = useState(null);
 
   // Dynamic import approach for markdown files
-  const loadMarkdownFile = async (projectId) => {
+  const loadMarkdownFile = async (postId) => {
     try {
       let markdownModule;
       
       // Dynamic import based on project ID
-      switch (projectId) {
+      switch (postId) {
         case "recycling-app":
           markdownModule = await import("/src/data/projects/livethrive-project.md?raw");
           break;
@@ -63,7 +63,7 @@ export const BlogPost = () => {
           value = value.slice(1, -1);
         }
         
-        // Handle arrays (skills)
+        // Handle arrays (skills and additionalImages)
         if (value.startsWith('[') && value.endsWith(']')) {
           value = value.slice(1, -1).split(',').map(item => 
             item.trim().replace(/['"]/g, '')
@@ -142,8 +142,30 @@ export const BlogPost = () => {
         // Parse frontmatter and content
         const { data: frontmatter, content } = parseFrontmatter(markdownContent);
         
-        // Get the hero image from the imported images
+        // Get the hero image(s) from the imported images
         const heroImageSrc = projectImages[frontmatter.heroImage] || null;
+        
+        // Handle multiple hero images
+        const heroImagesSrc = [];
+        if (frontmatter.heroImages && Array.isArray(frontmatter.heroImages)) {
+          frontmatter.heroImages.forEach(imageKey => {
+            const imageSrc = projectImages[imageKey];
+            if (imageSrc) {
+              heroImagesSrc.push(imageSrc);
+            }
+          });
+        }
+        
+        // Handle multiple additional images
+        const additionalImagesSrc = [];
+        if (frontmatter.additionalImages && Array.isArray(frontmatter.additionalImages)) {
+          frontmatter.additionalImages.forEach(imageKey => {
+            const imageSrc = projectImages[imageKey];
+            if (imageSrc) {
+              additionalImagesSrc.push(imageSrc);
+            }
+          });
+        }
         
         // Create project object with frontmatter data
         const projectData = {
@@ -151,6 +173,8 @@ export const BlogPost = () => {
           title: frontmatter.title || `Project: ${postId}`,
           description: frontmatter.description || "No description available",
           imageSrc: heroImageSrc, // Use the loaded image instead of the path
+          heroImages: heroImagesSrc, // Multiple hero images
+          additionalImages: additionalImagesSrc,
           skills: frontmatter.skills || [],
           date: frontmatter.date,
           demo: frontmatter.demo || "",
@@ -241,15 +265,81 @@ export const BlogPost = () => {
             )}
           </header>
           
-          {project.imageSrc && (
+          {/* Hero Image(s) */}
+          {project.heroImages && project.heroImages.length > 0 ? (
+            <div style={{
+              display: 'flex',
+              gap: '20px',
+              justifyContent: 'center',
+              flexWrap: 'wrap',
+              margin: '30px 0'
+            }}>
+              {project.heroImages.map((imageSrc, index) => (
+                <div key={index} className={styles.featuredImage} style={{
+                  margin: '0',
+                  flex: '1',
+                  maxWidth: '45%',
+                  minWidth: '300px'
+                }}>
+                  <img src={imageSrc} alt={`${project.title} ${index + 1}`} />
+                </div>
+              ))}
+            </div>
+          ) : project.imageSrc ? (
             <div className={styles.featuredImage}>
               <img src={project.imageSrc} alt={project.title} />
             </div>
-          )}
+          ) : null}
           
           <div className={styles.content}>
             <div className={styles.markdownContent}>
-              {renderMarkdown(project.content)}
+              {(() => {
+                const lines = project.content.split('\n');
+                
+                // Handle different split points for different projects
+                let splitIndex = -1;
+                let splitText = '';
+                
+                if (project.id === 'manghost-cafe') {
+                  splitIndex = lines.findIndex(line => line.includes('Game Concept & Mechanics'));
+                  splitText = 'Game Concept & Mechanics';
+                } else if (project.id === 'recycling-app') {
+                  splitIndex = lines.findIndex(line => line.includes('Team & Contributions'));
+                  splitText = 'Team & Contributions';
+                }
+                
+                if (splitIndex !== -1 && project.additionalImages && project.additionalImages.length > 0) {
+                  const beforeImage = lines.slice(0, splitIndex).join('\n');
+                  const afterImage = lines.slice(splitIndex).join('\n');
+                  
+                  return (
+                    <>
+                      {renderMarkdown(beforeImage)}
+                      <div style={{ 
+                        margin: '40px auto',
+                        display: 'flex',
+                        gap: '20px',
+                        justifyContent: 'center',
+                        flexWrap: 'wrap'
+                      }}>
+                        {project.additionalImages.map((imageSrc, index) => (
+                          <div key={index} className={styles.featuredImage} style={{ 
+                            margin: '0',
+                            flex: '1',
+                            maxWidth: project.additionalImages.length === 1 ? '80%' : '45%',
+                            minWidth: '300px'
+                          }}>
+                            <img src={imageSrc} alt={`${project.title} Image ${index + 1}`} />
+                          </div>
+                        ))}
+                      </div>
+                      {renderMarkdown(afterImage)}
+                    </>
+                  );
+                } else {
+                  return renderMarkdown(project.content);
+                }
+              })()}
             </div>
           </div>
 

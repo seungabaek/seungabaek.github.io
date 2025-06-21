@@ -3,9 +3,10 @@ title: 'Manghost Café'
 description: '3D single player restaurant game with AI pathfinding and real-time gameplay mechanics'
 pubDate: 'May 20 2025'
 heroImage: 'manghost-cafe.png'
+additionalImages: ['manghost.png', 'manghostPlay.png']
 skills: ['Unity', 'C#', 'NavMesh', 'Git']
 date: 'January 2025 - May 2025'
-demo: ''
+demo: 'https://youtu.be/0rmjGE1Ev24'
 source: 'https://github.gatech.edu/sbaek74/MangoTankGames'
 ---
 
@@ -104,11 +105,6 @@ Working with a five-person team required careful coordination of assets and code
 - Coordinating queue positioning based on customer count
 - Ensuring smooth transitions between waiting, seated, and served states
 
-**Performance Optimization**
-- Managing multiple AI agents simultaneously
-- Efficient pathfinding across two-story environment
-- Maintaining 60fps during peak customer periods
-
 **Interaction Systems**
 - Creating intuitive role-switching mechanics
 - Implementing precise timing for cooking systems
@@ -129,13 +125,10 @@ Working with a five-person team required careful coordination of assets and code
 ### Planned Improvements
 - **Audio Integration**: Sound effects for all interactions and ambient café sounds
 - **Animation Systems**: Character joint movement and cooking animations
-- **Progress Indicators**: Customer patience bars and cooking progress meters
-- **Performance Optimization**: Better handling of native resolution builds
+- **Progress Indicators**: Customer patience indicatiors and cooking progress bell
 - **Level Progression**: Multiple difficulty levels with varying customer counts
 
 ### Known Technical Issues
-- **Resolution Performance**: Game performance decreases significantly at native resolution
-- **Audio Implementation**: Sound system planned for final iteration
 - **Visual Polish**: Cooking progress bars and customer patience indicators pending
 
 ---

@@ -645,6 +645,14 @@
   .readMoreSection h2 {
     font-size: 1.5rem;
   }
+
+  /* Mobile responsive for additional images */
+  .featuredImage {
+    margin: 20px 0 !important;
+    max-width: 100% !important;
+    min-width: auto !important;
+    flex: none !important;
+  }
 }
 
 @media (max-width: 480px) {
@@ -667,5 +675,10 @@
   
   .feature, .level {
     padding: 12px 15px;
+  }
+
+  /* Very small screens - stack images vertically */
+  .featuredImage {
+    margin: 15px 0 !important;
   }
 }

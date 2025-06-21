@@ -3,7 +3,7 @@ title: 'Live Thrive CHaRM Mobile App'
 description: 'Cross-platform full-stack mobile scheduling system for Live Thrive'
 pubDate: 'May 20 2025'
 heroImage: 'livethrive3D.png'
-# assets/projects/livethrive3D.png
+additionalImages: ['juniorDesign.png']
 skills: ['Flutter', 'Dart', 'C#', '.NET 8', 'SQL', 'Azure', 'Firebase', 'Figma']
 date: 'August 2024 - May 2025'
 demo: ''

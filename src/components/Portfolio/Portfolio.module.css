@@ -11,58 +11,78 @@
 .imageTabNav {
     display: flex;
     justify-content: center;
-    gap: 0;
+    gap: 2px;
     margin-bottom: 0;
     border-radius: 15px 15px 0 0;
     overflow: hidden;
+    background: rgba(0, 0, 0, 0.1);
+    padding: 5px 5px 0 5px;
 }
 
 .imageTab {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: all 0.3s ease;
-    padding: 20px;
+    padding: 15px 20px;
     position: relative;
     flex: 1;
     min-height: 120px;
+    border-radius: 12px 12px 0 0;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-bottom: none;
+    margin-bottom: -2px;
 }
 
 .imageTab:first-child {
   background: #3a3a3a;
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.1);
 }
 
 .imageTab:nth-child(2) {
   background: #c8a882;
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.2);
 }
 
 .imageTab:last-child {
   background: #f4d03f;
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.3);
 }
 
 .imageTab:hover {
   filter: brightness(1.1);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2), inset 0 2px 4px rgba(255, 255, 255, 0.2);
 }
 
-/* Active tab states - match the body colors exactly */
+/* Active tab states - match the original colors exactly */
 .imageTab:first-child.active {
   background: #2c2c2ccb !important;
   filter: none;
-  box-shadow: inset 0 -3px 0 rgba(0,0,0,0.3);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), inset 0 -3px 0 rgba(0,0,0,0.3);
+  z-index: 10;
 }
 
 .imageTab:nth-child(2).active {
   background: #c8a88262 !important;
   filter: none;
-  box-shadow: inset 0 -3px 0 rgba(0,0,0,0.3);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), inset 0 -3px 0 rgba(0,0,0,0.3);
+  z-index: 10;
 }
 
 .imageTab:last-child.active {
   background: #f4d03f89 !important;
   filter: none;
-  box-shadow: inset 0 -3px 0 rgba(0,0,0,0.3);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), inset 0 -3px 0 rgba(0,0,0,0.3);
+  z-index: 10;
 }
 
 .characterImage {
@@ -179,13 +199,13 @@
 }
 
 .tag {
-  background: rgba(244, 208, 63, 0.468);
+  background: rgba(244, 208, 63, 0.2);
   color: #ffffff;
   padding: 4px 8px;
   border-radius: 12px;
   font-size: 12px;
   font-weight: 500;
-  border: 1px solid rgb(191, 163, 50);
+  border: 1px solid rgba(244, 208, 63, 0.3);
 }
 
 .projectLinks {
@@ -195,7 +215,7 @@
 }
 
 .linkIndicator {
-  background: rgba(244, 208, 63, 0.468);
+  background: rgba(244, 208, 63, 0.3);
   color: #f4d03f;
   padding: 3px 8px;
   border-radius: 10px;
@@ -333,12 +353,14 @@
   .imageTabNav {
     flex-direction: column;
     gap: 10px;
+    padding: 5px;
   }
   
   .imageTab {
     width: 100%;
     padding: 15px;
     min-height: 80px;
+    border-radius: 8px 8px 0 0;
   }
   
   .characterImage {
@@ -383,6 +405,11 @@
 @media (max-width: 480px) {
   .tabContent {
     min-height: 200px;
+  }
+  
+  .imageTab {
+    padding: 8px 5px;
+    min-height: 70px;
   }
   
   .characterImage {
