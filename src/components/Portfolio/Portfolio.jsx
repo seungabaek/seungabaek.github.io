@@ -234,20 +234,24 @@ export const Portfolio = () => {
 
   const aboutMeData = [
     {
-      title: "👨‍🏫 Teaching Assistant",
-      content: "Fourth-semester TA for CS 1332 (Data Structures & Algorithms). I lead recitations for 20+ students and hold weekly office hours, helping a class size of 1000+ students master Java-based algorithms."
+    title: "🤳🏻 Avid Picture Taker",
+    content: "After my ride or die Sony camera died with ingesting too much sand during my trip to the Sahara desert, I have been faithful to an Olympus film camera I thrifted in Shoreditch (all while I was on an exchange program in Leeds, UK!). Click on <a href = \"https://ea.oie.gatech.edu/2024-photo-contest-winners\"> ME </a> to see the film picture I got my first award for! Photo website also in the works!"
     },
     {
-      title: "🌎 Sustainability Advocate",
-      content: "International Science Fair Finalist for sustainable technology research. Member of Students Organizing Sustainability at GT, passionate about using tech for environmental impact."
+      title: "🪂 Jumping out of Planes!",
+      content: "I'm almost done with my skydiving A license! I've finished 8 solo jumps and am now on my consoles (free jumps to practice your skills)! Now that I have finished all CS courses, I will have more time to be active in the GT Sport Parachute Club to finish up what I started. (it will never end!)"
     },
     {
-      title: "📻 Radio DJ & Skydiver",
-      content: "When I'm not coding, you'll find me on air at WREK 91.1 College Radio or jumping out of planes with the GT Sport Parachute Club. I believe in living life to the fullest!"
+      title: "📻 WREK 91.1",
+      content: "WREK is Georgia Tech's student-run radio. Tune in 24/7 on 91.1 or click <a href=\"https://open.spotify.com/playlist/5EKtIEB8ziSGxuyiW5jLSj?si=d67b6198d7ed4372\">HERE</a> to see my Spotify playlist of favorite songs I compiled during my shifts! To-be infinitely grown."
+    },
+    {
+      title: "🐳 An Ocean Sciences Minor?",
+      content: "I started off at GT as a 1st year Earth and Atmospheric Sciences major with lots of independent research experience + International Science Fair Finalist for atmospheric science research. Although I've changed paths, my interest in sustainable tech remains, hence the minor. I hope to grow my skills for use in non-traditionally technical fields for possitive environmental impact."
     },
     {
       title: "🇰🇷 KSEA Vice President",
-      content: "Leading the Korean-American Scientists and Engineers Association at GT, fostering community and professional development for fellow students."
+      content: "Starting as a freshman representative to leading the Korean-American Scientists and Engineers Association at GT, I've been very active in the KSEA community and am passionate about fostering community and professional development for fellow students! This has helped diversify my college experience with invitations to both national and international conventions!"
     },
     {
       title: "🌐 Multilingual Communicator",
@@ -372,7 +376,7 @@ export const Portfolio = () => {
   const AboutMeItem = ({ item }) => (
     <div className={styles.aboutMeItem}>
       <h3>{item.title}</h3>
-      <p>{item.content}</p>
+      <div dangerouslySetInnerHTML={{ __html: item.content }} />
     </div>
   );
 

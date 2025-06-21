@@ -18,12 +18,11 @@ export const Hero = () => {
           />
         </h1>
         <p className={styles.description}>
-            Pronounced like "sing-a"-song, I'm a 4th-year CS student with
-            a double minor in Ocean Sciences & Industrial Design. 
-            I'm a developer who loves exploring the intersection of design, technology, and creativity!
-            I'm always learning, building, and finding 
-            better ways to connect people with thoughtful, 
-            user-centered solutions. Reach out if you'd like to learn more!
+            Pronounced like "sing-a"-song, I'm currently a Computer Science student in my last semester at Georgia Tech
+            dedicated to finishing a double minor in Ocean Sciences & Industrial Design
+            (how are all these interests related? I'm not sure yet!). 
+            I'm always looking to learn new things so feel free to reach out with anything
+            or to hear more about how I plan to successfuly intersect my skills!
               
         </p>
         <a href="mailto:seungabaek@gatech.edu" className={styles.contactBtn}>

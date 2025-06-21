@@ -306,6 +306,9 @@ export const BlogPost = () => {
                 } else if (project.id === 'recycling-app') {
                   splitIndex = lines.findIndex(line => line.includes('Team & Contributions'));
                   splitText = 'Team & Contributions';
+                } else if (project.id == 'threat-intelligence') {
+                  splitIndex = lines.findIndex(line => line.includes('Our Solution: Enhanced Iris Framework'));
+                  splitText = 'Our Solution: Enhanced Iris Framework';
                 }
                 
                 if (splitIndex !== -1 && project.additionalImages && project.additionalImages.length > 0) {

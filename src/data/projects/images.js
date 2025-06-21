@@ -9,6 +9,8 @@ import manghostPlay from './pics/manghostPlay.png';
 
 import threatIntelligence1 from './pics/threat1.png';
 import threatIntelligence2 from './pics/threat2.png';
+import fileshare from './pics/fileshare.png';
+
 
 export const projectImages = {
   'livethrive3D.png': livethrive3D,
@@ -21,5 +23,6 @@ export const projectImages = {
   'manghostPlay.png': manghostPlay,
 
   'threat1.png': threatIntelligence1,
-  'threat2.png': threatIntelligence2
+  'threat2.png': threatIntelligence2,
+  'fileshare.png': fileshare
 };
