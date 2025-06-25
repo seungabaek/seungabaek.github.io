@@ -39,15 +39,14 @@ export const Home = () => {
       <section className={styles.githubCalendarSection}>
         <h2 className={styles.githubCalendarTitle}>My Git!</h2>
         <div className={styles.githubCalendarContainer}>
-          <GitHubCalendar 
-            username="seungabaek" 
-            colorScheme="light"
-            theme={{
-              light: ['#ebedf0', '#fff176', '#ffeb3b', '#9ccc65', 'rgba(57, 121, 1, 0.597)'],
-              dark: ['#161b22', '#fff176', '#ffeb3b', '#9ccc65', 'rgba(57, 121, 1, 0.597)']
-            }}
-            
-          />
+        <GitHubCalendar 
+          username="seungabaek" 
+          colorScheme="light"
+          theme={{
+            light: ['#ebedf0', '#fff176', '#c5e1a5', '#9ccc65', '#689f38'],
+            dark: ['#161b22', '#fff176', '#c5e1a5', '#9ccc65', '#689f38']
+          }}
+        />
         </div>
       </section>
       
