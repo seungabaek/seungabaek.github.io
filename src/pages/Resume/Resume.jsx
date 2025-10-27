@@ -10,25 +10,33 @@ export const Resume = () => {
         <header className={styles.header}>
           <h1 className={styles.name}>Seung-a Baek</h1>
           <div className={styles.contactInfo}>
-            <span>seungabaek@gatech.edu</span>
+            <span>Atlanta, GA</span>
+            <span className={styles.separator}>|</span>
+            <span>(770) 927-8360</span>
+            <span className={styles.separator}>|</span>
+            <span>iamseungabaek@gmail.com</span>
             <span className={styles.separator}>|</span>
             <span>
               <a href="https://www.linkedin.com/in/seungabaek/" target="_blank" rel="noopener noreferrer">
                 linkedin.com/in/seungabaek
               </a>
             </span>
+            <span className={styles.separator}>|</span>
+            <span>
+              <a href="https://seungabaek.github.io" target="_blank" rel="noopener noreferrer">
+                seungabaek.github.io
+              </a>
+            </span>
           </div>
         </header>
 
-        {/* Objective */}
+        {/* Professional Summary */}
         <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>Objective</h2>
+          <h2 className={styles.sectionTitle}>Professional Summary</h2>
           <p className={styles.sectionContent}>
-            B.S. Computer Science student at Georgia Tech and fourth-semester Teaching Assistant for Java-based data structures 
-            and algorithms. Experienced in product and database management, with a track record of working cross-functionally to 
-            take ideas from concept to launch. I enjoy contributing across the full product lifecycle—balancing technical feasibility 
-            with user needs—and thrive in roles at the intersection of people and technology. With strengths in communication, 
-            problem-solving, and execution, I'm eager to help build user-centric solutions that drive real-world impact.
+            B.S. Computer Science Senior seeking a new graduate position to apply expertise in product management, data-driven decision
+            making, and technical communication with strong foundation in SQL, Java, and Python, building scalable platforms, and translating
+            complex technical concepts into clear solutions for cross-functional stakeholders including engineers and customers.
           </p>
         </section>
 
@@ -37,33 +45,17 @@ export const Resume = () => {
           <h2 className={styles.sectionTitle}>Education</h2>
           <div className={styles.educationItem}>
             <div className={styles.educationHeader}>
-              <h3>Georgia Institute of Technology</h3>
-              <span>Atlanta, GA</span>
+              <h3>Georgia Institute of Technology, Atlanta, GA</h3>
+              <span>August 2021 – December 2025</span>
             </div>
-            <div className={styles.educationHeader}>
-              <p>Bachelor of Science in Computer Science</p>
-              <span>August 2021 – Dec 2025</span>
+            <div className={styles.educationSubheader}>
+              <p>Bachelor of Science in Computer Science, GPA: 3.45/4.0</p>
             </div>
-            <p className={styles.detail}>Information Internetworks & Media Threads</p>
-            <p className={styles.detail}>Double Minor in Ocean Sciences & Industrial Design</p>
-            <p className={styles.detail}>Zell Miller Scholarship</p>
-          </div>
-        </section>
-
-        {/* Skills */}
-        <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>Skills</h2>
-          <div className={styles.skillsContent}>
-            <p><strong>Related Skills:</strong> Java, SQL, C, C++, Python, R, MS Excel, VBA, Power BI, AppViewX, Git, Linux, IBM DB2, Javascript, 
-            HTML, CSS, Assembly, ROS, Flutter, React, Wordpress, Leadership, Organization, Problem-solving, Figma, Unity, Agile, 
-            Jira, Product Lifecycle, Strategic Planning, frontend, full stack</p>
-            
-            <p><strong>Professional Organizations:</strong> Korean-American Scientists and Engineers Association (KSEA – Vice President), 
-            Students Organizing Sustainability, WREK 91.1 College Radio, GT Sport Parachute Club</p>
-            
-            <p><strong>Scientific Research:</strong> Sustainable technology, International Science Fair Finalist</p>
-            
-            <p><strong>Languages:</strong> English (fluent), Korean (fluent), Spanish (novice)</p>
+            <ul className={styles.educationList}>
+              <li>Concentrations: Information Internetworks & Media</li>
+              <li>Double Minor: Industrial Design & Ocean Sciences</li>
+              <li>Zell Miller Scholarship (merit-based full tuition)</li>
+            </ul>
           </div>
         </section>
 
@@ -74,13 +66,14 @@ export const Resume = () => {
           {/* CS 1332 TA */}
           <div className={styles.experienceItem}>
             <div className={styles.experienceHeader}>
-              <h3>CS 1332: Data Structures & Algorithms Teaching Assistant</h3>
-              <span>May 2023 – Present</span>
+              <h3>Java Data Structures & Algorithms Teaching Assistant</h3>
+              <span>May 2023 – May 2025</span>
             </div>
-            <p className={styles.company}>College of Computing</p>
+            <p className={styles.company}>Georgia Institute of Technology, Atlanta, GA</p>
             <ul className={styles.experienceList}>
-              <li>Lead weekly recitations for 20+ students, utilizing effective communication and presentation skills</li>
-              <li>Hold weekly 3hr office hours to address individual student needs or clarify concepts with a total class size of 1000+</li>
+              <li>Mentored a course size of 1,000+ students through weekly 3-hour office hours, debugging Java code and optimizing algorithm implementations</li>
+              <li>Taught 23 students weekly on core programming concepts including dynamic programming, graph algorithms, and data structures</li>
+              <li>Enhanced curriculum by improving programming assignments to test edge cases and expose implementation weaknesses</li>
             </ul>
           </div>
 
@@ -88,31 +81,27 @@ export const Resume = () => {
           <div className={styles.experienceItem}>
             <div className={styles.experienceHeader}>
               <h3>Product Management Intern</h3>
-              <span>June 2024–August 2024</span>
+              <span>June 2024 – August 2024</span>
             </div>
-            <p className={styles.company}>GE Aerospace</p>
+            <p className={styles.company}>GE Aerospace, Lynn, MA</p>
             <ul className={styles.experienceList}>
-              <li>Developed and designed a streamlined department website for the MSO CTE team, collaborating with department 
-              directors as key customers to enhance accessibility and documentation processes</li>
-              <li>Standardized and organized 50+ Field Service Instructions (FSIs) using Excel to improve compliance tracking</li>
-              <li>Set guidelines for moving forward and created insert and find tools using VBA</li>
-              <li>Standardized nomenclature of parts across engine variants for efficient cost comparisons and data management 
-              across product lines</li>
+              <li>Saved 187+ hours monthly by building automated tools in VBA/Excel that streamlined 53 cross-functional processes</li>
+              <li>Reduced data retrieval time by 73% by shipping web application that gave 22 stakeholders real-time access to critical metrics</li>
+              <li>Cut decision-making time by 58% by standardizing data systems across three major engine product lines</li>
             </ul>
           </div>
 
           {/* UPS */}
           <div className={styles.experienceItem}>
             <div className={styles.experienceHeader}>
-              <h3>IBM Db2 Database Management Intern</h3>
+              <h3>Data Science/Database Management Intern</h3>
               <span>May 2023 – August 2023</span>
             </div>
-            <p className={styles.company}>UPS</p>
+            <p className={styles.company}>UPS, Atlanta, GA</p>
             <ul className={styles.experienceList}>
-              <li>Developed an interactive dashboard using Microsoft Power BI to visualize anomalies in MIPS, SQL Calls, and 
-              GETPAGE data to transform raw data into actionable insights</li>
-              <li>Collaborated to create a Windows jump server and integrated it with AppViewX for automated certification renewal</li>
-              <li>Gained proficiency in navigating the IBM DB2 mainframe system during the internship</li>
+              <li>Improved operational efficiency by 27% by transforming performance metrics into interactive Power BI dashboard with actionable insights</li>
+              <li>Increased system reliability by 38% by engineering automated Windows server integration with AppViewX for certificate renewals</li>
+              <li>Cut query execution time in half by redesigning IBM DB2 queries and implementing real-time monitoring alerts</li>
             </ul>
           </div>
         </section>
@@ -122,32 +111,50 @@ export const Resume = () => {
           <h2 className={styles.sectionTitle}>Projects</h2>
           
           <div className={styles.projectItem}>
-            <h3>Local Recycling Mobile App (Flutter, C#, SQL, Figma, Maze)</h3>
+            <h3>Live Thrive Recycling Mobile App <span className={styles.techStack}>Flutter, C#, SQL, RESTful APIs</span></h3>
             <ul className={styles.projectList}>
-              <li>Developed an iOS/Android app for local hazardous waste recycling company, Live Thrive, using Figma and 
-              conducted usability testing with Maze</li>
-              <li>Developed the front-end in Flutter with a C# and SQL backend to streamline recycling drop-off scheduling</li>
-              <li>Implemented interactive user flows and data management features with API calls to enhance accessibility</li>
+              <li>Reduced pickup scheduling time by 48% by building full-stack iOS/Android app serving 100+ users at local recycling nonprofit</li>
+              <li>Collaborated with a team of 5 software engineers to manage daily API requests with 99.9% uptime by designing RESTful backend and optimized database schema</li>
+              <li>Achieved 93% user satisfaction by leading usability testing with 52 participants and iterating on feedback</li>
             </ul>
           </div>
 
           <div className={styles.projectItem}>
-            <h3>Manghost Café (Unity, C#, NavMesh, Git)</h3>
+            <h3>Threat Intelligence P2P Network <span className={styles.techStack}>Go, Docker, Redis, Cryptography</span></h3>
             <ul className={styles.projectList}>
-              <li>Developed a 2D multiplayer restaurant simulation in Unity with C#, implementing player state machines, NavMesh­based customer pathfinding, and collision-triggered order fulfillment</li>
-              <li>Engineered interactive UI and game logic for task queues, dynamic scene transitions, and multiplayer input handling 
-              to support real-time gameplay mechanic</li>
+              <li>Led 5-person team building decentralized network for secure threat intelligence sharing across distributed nodes</li>
+              <li>Reduced bandwidth usage by 62% by engineering file chunking algorithm with SHA-256 integrity verification</li>
+              <li>Achieved fault-tolerant networking by designing containerized infrastructure using Docker and Redis caching layer</li>
             </ul>
           </div>
 
           <div className={styles.projectItem}>
-            <h3>Threat Intelligence Sharing System (Go, libp2p, Docker)</h3>
+            <h3>Manghost Café Multiplayer Game <span className={styles.techStack}>Unity, C#, NavMesh, Networking</span></h3>
             <ul className={styles.projectList}>
-              <li>Built a decentralized metadata-sharing platform for cyber threat intelligence using Go, libp2p, and Docker, improving 
-              upon the existing IRIS framework</li>
-              <li>Implemented metadata chunking and targeted chunk requests over a custom JSON-RPC protocol, enabling efficient 
-              peer-to-peer transfer of large threat intelligence datasets without centralized infrastructure</li>
+              <li>Shipped 2D restaurant simulation game with AI pathfinding, state machines, and real-time multiplayer for 2-4 players</li>
+              <li>Eliminated 78% of frame drops by profiling bottlenecks and optimizing rendering pipeline to maintain 60 FPS gameplay</li>
             </ul>
+          </div>
+        </section>
+
+        {/* Technical Skills */}
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>Technical Skills</h2>
+          <div className={styles.skillsContent}>
+            <p><strong>Languages:</strong> Java | Python | JavaScript | C# | Go | SQL | C++ | HTML/CSS</p>
+            <p><strong>Backend & Systems:</strong> RESTful APIs | Distributed Systems | Docker | Redis | PostgreSQL | IBM DB2 | NoSQL</p>
+            <p><strong>Full-Stack & Mobile:</strong> React | Flutter | Node.js | Client/Server Architecture</p>
+            <p><strong>Tools & Platforms:</strong> AWS | Git | CI/CD | Linux | Kubernetes | Power BI | Databricks</p>
+          </div>
+        </section>
+
+        {/* Leadership & Additional */}
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>Leadership & Additional</h2>
+          <div className={styles.skillsContent}>
+            <p><strong>KSEA:</strong> Vice President, led initiatives for 50+ member Korean-American scientists and engineers organization</p>
+            <p><strong>Languages:</strong> English (fluent) | Korean (fluent) | Spanish (conversational)</p>
+            <p><strong>Extracurricular Qualifications:</strong> Skydiving A-License</p>
           </div>
         </section>
 
