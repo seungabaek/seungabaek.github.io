@@ -21,12 +21,6 @@ export const Resume = () => {
                 linkedin.com/in/seungabaek
               </a>
             </span>
-            <span className={styles.separator}>|</span>
-            <span>
-              <a href="https://seungabaek.github.io" target="_blank" rel="noopener noreferrer">
-                seungabaek.github.io
-              </a>
-            </span>
           </div>
         </header>
 
@@ -49,7 +43,7 @@ export const Resume = () => {
               <span>August 2021 – December 2025</span>
             </div>
             <div className={styles.educationSubheader}>
-              <p>Bachelor of Science in Computer Science, GPA: 3.45/4.0</p>
+              <p>Bachelor of Science in Computer Science</p>
             </div>
             <ul className={styles.educationList}>
               <li>Concentrations: Information Internetworks & Media</li>
